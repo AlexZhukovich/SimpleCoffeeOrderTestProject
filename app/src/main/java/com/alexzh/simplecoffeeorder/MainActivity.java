@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 updateTotalPrice();
                 break;
             case R.id.pay:
-                startActivity(generatePaymentIntent());
+                startActivity(generatePaymentIntent(mOrder.getTotalPrice()));
                 break;
         }
     }
@@ -79,9 +79,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mTotalPrice.setText(String.format(getString(R.string.total_price), mOrder.getTotalPrice()));
     }
 
-    private Intent generatePaymentIntent() {
+    private Intent generatePaymentIntent(float totalPrice) {
         Intent paymentIntent = new Intent(this, PaymentActivity.class);
-        paymentIntent.putExtra(PaymentActivity.TOTAL_PRICE, mOrder.getTotalPrice());
+        paymentIntent.putExtra(PaymentActivity.TOTAL_PRICE, totalPrice);
         return paymentIntent;
     }
 }
