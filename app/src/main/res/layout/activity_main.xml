@@ -55,4 +55,12 @@
         android:textSize="20sp"
         android:text="@string/total_price"/>
 
+    <Button
+        android:id="@+id/pay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/pay"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:layout_gravity="center_horizontal"/>
+
 </LinearLayout>

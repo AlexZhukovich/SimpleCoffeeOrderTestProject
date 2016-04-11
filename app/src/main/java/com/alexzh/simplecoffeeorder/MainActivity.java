@@ -1,5 +1,6 @@
 package com.alexzh.simplecoffeeorder;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -30,6 +31,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         findViewById(R.id.coffee_increment).setOnClickListener(this);
         findViewById(R.id.coffee_decrement).setOnClickListener(this);
+        findViewById(R.id.pay).setOnClickListener(this);
 
         mOrder = new CoffeeOrder(DEFAULT_COFFEE_PRICE);
     }
@@ -46,6 +48,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 mOrder.decrementCoffeeCount();
                 updateCoffeeCount();
                 updateTotalPrice();
+                break;
+            case R.id.pay:
+                startActivity(generatePaymentIntent());
                 break;
         }
     }
@@ -72,5 +77,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void  updateTotalPrice() {
         mTotalPrice.setText(String.format(getString(R.string.total_price), mOrder.getTotalPrice()));
+    }
+
+    private Intent generatePaymentIntent() {
+        Intent paymentIntent = new Intent(this, PaymentActivity.class);
+        paymentIntent.putExtra(PaymentActivity.TOTAL_PRICE, mOrder.getTotalPrice());
+        return paymentIntent;
     }
 }

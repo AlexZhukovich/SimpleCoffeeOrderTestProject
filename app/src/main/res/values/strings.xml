@@ -5,4 +5,5 @@
     <string name="increment_label">+</string>
     <string name="decrement_label">-</string>
     <string name="default_coffee_count">0</string>
+    <string name="pay">Pay</string>
 </resources>
