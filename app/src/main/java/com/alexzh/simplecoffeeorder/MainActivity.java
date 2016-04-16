@@ -1,7 +1,5 @@
 package com.alexzh.simplecoffeeorder;
 
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -28,7 +26,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         mCoffeePrice.setText(String.format(getString(R.string.coffee_price), DEFAULT_COFFEE_PRICE));
         mTotalPrice.setText(String.format(getString(R.string.total_price), 0.0f));
-
 
         findViewById(R.id.coffee_increment).setOnClickListener(this);
         findViewById(R.id.coffee_decrement).setOnClickListener(this);

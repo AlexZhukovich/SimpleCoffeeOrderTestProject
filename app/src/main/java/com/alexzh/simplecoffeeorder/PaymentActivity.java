@@ -23,8 +23,11 @@ public class PaymentActivity extends AppCompatActivity {
 
         if (getIntent()!= null && getIntent().getExtras() != null) {
             float totalPrice = getIntent().getExtras().getFloat(TOTAL_PRICE);
-            ((TextView) findViewById(R.id.payment_data)).setText(getString(R.string.total_price,
-                    totalPrice));
+            TextView paymentData = (TextView) findViewById(R.id.payment_data);
+
+            if (paymentData != null) {
+                paymentData.setText(getString(R.string.total_price, totalPrice));
+            }
         }
     }
 }
