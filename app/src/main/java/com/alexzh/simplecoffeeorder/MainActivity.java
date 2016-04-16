@@ -2,8 +2,8 @@ package com.alexzh.simplecoffeeorder;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
 
@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 updateTotalPrice();
                 break;
             case R.id.pay:
-                startActivity(generatePaymentIntent(getApplicationContext(), mOrder.getTotalPrice()));
+                startActivity(PaymentActivity.createIntent(getApplicationContext(), mOrder.getTotalPrice()));
                 break;
         }
     }
@@ -78,12 +78,5 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void  updateTotalPrice() {
         mTotalPrice.setText(String.format(getString(R.string.total_price), mOrder.getTotalPrice()));
-    }
-
-    //TODO: Improve this part of code after finish series Android Testing for beginners
-    public static Intent generatePaymentIntent(Context context, float totalPrice) {
-        Intent paymentIntent = new Intent(context, PaymentActivity.class);
-        paymentIntent.putExtra(PaymentActivity.TOTAL_PRICE, totalPrice);
-        return paymentIntent;
     }
 }
