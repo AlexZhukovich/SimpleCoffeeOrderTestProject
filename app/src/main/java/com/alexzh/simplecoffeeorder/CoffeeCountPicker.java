@@ -8,7 +8,11 @@ import android.widget.TextView;
 
 public class CoffeeCountPicker extends FrameLayout implements View.OnClickListener {
     public interface OnCoffeeCountPickerListener {
-        void onPickerChanged(int coffeeCount);
+        void onPickerChanged(int coffeeCount, CoffeeOrderOperation operation);
+    }
+
+    enum CoffeeOrderOperation {
+        INIT, ADDED, REMOVED
     }
 
     private OnCoffeeCountPickerListener mPickerListener;
@@ -46,7 +50,7 @@ public class CoffeeCountPicker extends FrameLayout implements View.OnClickListen
     public void setCoffeeCount(int coffeeCount) {
         this.mCoffeeCount = coffeeCount;
         displayCoffeeCount();
-        notifyListener();
+        notifyListener(CoffeeOrderOperation.INIT);
     }
 
     public void setOnCoffeeCountPickerListener(OnCoffeeCountPickerListener listener) {
@@ -58,21 +62,21 @@ public class CoffeeCountPicker extends FrameLayout implements View.OnClickListen
         switch (v.getId()) {
             case R.id.coffee_increment:
                 mCoffeeCount++;
-                notifyListener();
+                notifyListener(CoffeeOrderOperation.ADDED);
                 break;
             case R.id.coffee_decrement:
                 if (mCoffeeCount > 0) {
                     mCoffeeCount--;
-                    notifyListener();
+                    notifyListener(CoffeeOrderOperation.REMOVED);
                 }
                 break;
         }
         displayCoffeeCount();
     }
 
-    private void notifyListener() {
+    private void notifyListener(CoffeeOrderOperation operation) {
         if (mPickerListener != null) {
-            mPickerListener.onPickerChanged(mCoffeeCount);
+            mPickerListener.onPickerChanged(mCoffeeCount, operation);
         }
     }
 

@@ -7,7 +7,7 @@
     <Button
         android:id="@+id/coffee_decrement"
         android:layout_width="48dp"
-        android:layout_height="wrap_content"
+        android:layout_height="32dp"
         android:background="@android:color/transparent"
         android:text="@string/decrement_label"/>
 
@@ -17,14 +17,14 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
-        android:textSize="32sp"
+        android:textSize="24sp"
         android:text="@string/default_coffee_count"
         android:layout_gravity="center_vertical"/>
 
     <Button
         android:id="@+id/coffee_increment"
         android:layout_width="48dp"
-        android:layout_height="wrap_content"
+        android:layout_height="32dp"
         android:background="@android:color/transparent"
         android:text="@string/increment_label"/>
 
