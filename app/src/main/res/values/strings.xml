@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">SimpleCoffeeOrderTestProject</string>
     <string name="coffee_price">Coffee: $%.1f</string>
+    <string name="price">$%.1f</string>
     <string name="total_price">Total price: $%.1f</string>
     <string name="increment_label">+</string>
     <string name="decrement_label">-</string>
