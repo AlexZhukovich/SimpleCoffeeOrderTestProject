@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.os.SystemClock;
 import android.support.v4.content.LocalBroadcastManager;
 
+import com.alexzh.simplecoffeeorder.model.Coffee;
+
 import java.util.ArrayList;
 
 public class CoffeeService extends IntentService {
@@ -33,6 +35,10 @@ public class CoffeeService extends IntentService {
         list.add(new Coffee("Latte", 5.5f));
         list.add(new Coffee("Mocha", 7.5f));
         list.add(new Coffee("Cappuccino", 9.5f));
+        list.add(new Coffee("Vacuum coffee", 12.0f));
+        list.add(new Coffee("Café Cubano", 9.0f));
+        list.add(new Coffee("Cafe Zorro", 6.0f));
+        list.add(new Coffee("Guillermo", 3.0f));
         return list;
     }
 }
