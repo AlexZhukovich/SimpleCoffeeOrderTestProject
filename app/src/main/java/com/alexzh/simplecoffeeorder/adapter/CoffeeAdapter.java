@@ -1,11 +1,16 @@
-package com.alexzh.simplecoffeeorder;
+package com.alexzh.simplecoffeeorder.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import com.alexzh.simplecoffeeorder.R;
+import com.alexzh.simplecoffeeorder.customview.CoffeeCountPicker;
+import com.alexzh.simplecoffeeorder.model.Coffee;
 
 import java.util.List;
 
@@ -14,6 +19,7 @@ public class CoffeeAdapter extends RecyclerView.Adapter<CoffeeAdapter.ViewHolder
         void onCoffeeChanged(Coffee coffee, CoffeeCountPicker.CoffeeOrderOperation operation, int count);
     }
 
+    private int[] countArray;
     private List<Coffee> mCoffeeList;
     private CoffeeOrderListener mListener;
     private Context mContext;
@@ -22,10 +28,12 @@ public class CoffeeAdapter extends RecyclerView.Adapter<CoffeeAdapter.ViewHolder
         this.mCoffeeList = coffeeList;
         this.mContext = context;
         mListener = listener;
+        countArray = new int[coffeeList == null ? 0 : coffeeList.size()];
     }
 
     public void setCoffeeList(List<Coffee> coffeeList) {
         this.mCoffeeList = coffeeList;
+        countArray = new int[coffeeList == null ? 0 : coffeeList.size()];
         notifyDataSetChanged();
     }
 
@@ -41,14 +49,21 @@ public class CoffeeAdapter extends RecyclerView.Adapter<CoffeeAdapter.ViewHolder
         holder.mCoffeeName.setText(mCoffeeList.get(position).getName());
         holder.mCoffeePrice.setText(mContext.getString(R.string.price,
                 mCoffeeList.get(position).getPrice()));
+
         holder.mCoffeeCountPicker.setOnCoffeeCountPickerListener(new CoffeeCountPicker.OnCoffeeCountPickerListener() {
             @Override
             public void onPickerChanged(int coffeeCount, CoffeeCountPicker.CoffeeOrderOperation operation) {
+                Log.d("onPickerChanged", "count = "+coffeeCount + "; operation = "+operation);
                 if (mListener != null && mCoffeeList != null) {
                     mListener.onCoffeeChanged(mCoffeeList.get(position), operation, holder.mCoffeeCountPicker.getCoffeeCount());
                 }
+                countArray[position] = coffeeCount;
             }
         });
+
+        if (countArray.length > position) {
+            holder.mCoffeeCountPicker.setCoffeeCount(countArray[position]);
+        }
     }
 
     @Override

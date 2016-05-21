@@ -25,7 +25,7 @@
         android:layout_alignStart="@+id/coffee_name"
         android:layout_marginBottom="8dp"/>
 
-    <com.alexzh.simplecoffeeorder.CoffeeCountPicker
+    <com.alexzh.simplecoffeeorder.customview.CoffeeCountPicker
         android:id="@+id/coffee_count_picker"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
