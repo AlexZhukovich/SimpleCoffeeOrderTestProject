@@ -1,4 +1,4 @@
-package com.alexzh.simplecoffeeorder;
+package com.alexzh.simplecoffeeorder.model;
 
 import java.io.Serializable;
 
