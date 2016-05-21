@@ -1,4 +1,4 @@
-package com.alexzh.simplecoffeeorder;
+package com.alexzh.simplecoffeeorder.customview;
 
 import android.content.Context;
 import android.util.AttributeSet;
@@ -6,12 +6,14 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
+import com.alexzh.simplecoffeeorder.R;
+
 public class CoffeeCountPicker extends FrameLayout implements View.OnClickListener {
     public interface OnCoffeeCountPickerListener {
         void onPickerChanged(int coffeeCount, CoffeeOrderOperation operation);
     }
 
-    enum CoffeeOrderOperation {
+    public enum CoffeeOrderOperation {
         INIT, ADDED, REMOVED
     }
 
