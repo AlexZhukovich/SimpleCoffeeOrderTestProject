@@ -9,8 +9,8 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.alexzh.simplecoffeeorder.model.Coffee;
-import com.alexzh.simplecoffeeorder.CoffeeOrder;
 import com.alexzh.simplecoffeeorder.R;
+import com.alexzh.simplecoffeeorder.utils.CoffeeOrderUtils;
 
 import java.util.HashMap;
 
@@ -62,9 +62,9 @@ public class DetailListViewAdapter extends BaseAdapter {
         }
 
         if (position <= mOrderedCoffee.size()) {
-            Coffee coffee = CoffeeOrder.getCoffeeByPosition(mOrderedCoffee, position);
+            Coffee coffee = CoffeeOrderUtils.getCoffeeByPosition(mOrderedCoffee, position);
             if (coffee != null) {
-                int count = CoffeeOrder.getCountByCoffee(mOrderedCoffee, coffee);
+                int count = CoffeeOrderUtils.getCountByCoffee(mOrderedCoffee, coffee);
 
                 viewHolder.mCoffeeName.setText(coffee.getName());
                 viewHolder.mCoffeeCount.setText(String.valueOf(count));

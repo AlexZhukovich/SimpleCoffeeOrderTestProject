@@ -12,6 +12,8 @@ import com.alexzh.simplecoffeeorder.R;
 import com.alexzh.simplecoffeeorder.customview.CoffeeCountPicker;
 import com.alexzh.simplecoffeeorder.model.Coffee;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class CoffeeAdapter extends RecyclerView.Adapter<CoffeeAdapter.ViewHolder> {
@@ -24,16 +26,33 @@ public class CoffeeAdapter extends RecyclerView.Adapter<CoffeeAdapter.ViewHolder
     private CoffeeOrderListener mListener;
     private Context mContext;
 
-    public CoffeeAdapter(Context context, List<Coffee> coffeeList, CoffeeOrderListener listener) {
-        this.mCoffeeList = coffeeList;
+    public CoffeeAdapter(Context context, HashMap<Coffee, Integer> coffeeOrderMap, CoffeeOrderListener listener) {
+
         this.mContext = context;
         mListener = listener;
-        countArray = new int[coffeeList == null ? 0 : coffeeList.size()];
+        mCoffeeList = new ArrayList<>();
+        countArray = new int[coffeeOrderMap == null ? 0 : coffeeOrderMap.size()];
+        int position = 0;
+        if (coffeeOrderMap != null && coffeeOrderMap.size() > 0) {
+            for (Coffee coffee : coffeeOrderMap.keySet()) {
+                mCoffeeList.add(coffee);
+                countArray[position] = coffeeOrderMap.get(coffee);
+                position++;
+            }
+        }
     }
 
-    public void setCoffeeList(List<Coffee> coffeeList) {
-        this.mCoffeeList = coffeeList;
-        countArray = new int[coffeeList == null ? 0 : coffeeList.size()];
+    public void setCoffeeList(HashMap<Coffee, Integer> coffeeOrderMap) {
+        mCoffeeList = new ArrayList<>();
+        countArray = new int[coffeeOrderMap == null ? 0 : coffeeOrderMap.size()];
+        int position = 0;
+        if (coffeeOrderMap != null && coffeeOrderMap.size() > 0) {
+            for (Coffee coffee : coffeeOrderMap.keySet()) {
+                mCoffeeList.add(coffee);
+                countArray[position] = coffeeOrderMap.get(coffee);
+                position++;
+            }
+        }
         notifyDataSetChanged();
     }
 
