@@ -10,7 +10,6 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Espresso"
         android:textSize="24sp"
         android:id="@+id/coffee_name"
         android:layout_alignParentTop="true"
@@ -20,7 +19,6 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="5"
         android:textSize="24sp"
         android:id="@+id/coffee_count"
         android:layout_alignParentTop="true"
@@ -31,7 +29,6 @@
         android:layout_marginTop="6dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="$5.0"
         android:textSize="20sp"
         android:id="@+id/coffee_price"
         android:layout_below="@+id/coffee_name"
@@ -41,7 +38,6 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="$25"
         android:textSize="22sp"
         android:id="@+id/total_price"
         android:layout_alignTop="@+id/coffee_price"

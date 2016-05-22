@@ -28,7 +28,7 @@ public class CoffeeService extends IntentService {
         manager.sendBroadcast(replyIntent);
     }
 
-    private final static ArrayList<Coffee> getCoffeeData() {
+    public final static ArrayList<Coffee> getCoffeeData() {
         ArrayList<Coffee> list = new ArrayList<>();
         list.add(new Coffee("Espresso", 5.0f));
         list.add(new Coffee("Americano", 4.5f));
