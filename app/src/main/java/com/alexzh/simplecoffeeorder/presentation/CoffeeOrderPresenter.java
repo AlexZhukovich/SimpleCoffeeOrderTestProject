@@ -1,5 +1,10 @@
 package com.alexzh.simplecoffeeorder.presentation;
 
+import android.content.Intent;
+import android.os.Bundle;
+
+import com.alexzh.simplecoffeeorder.customview.CoffeeCountPicker;
+import com.alexzh.simplecoffeeorder.model.Coffee;
 import com.alexzh.simplecoffeeorder.view.CoffeeOrderView;
 
 /**
@@ -9,11 +14,17 @@ public interface CoffeeOrderPresenter {
 
     void onResume();
 
-    void loadCoffeeList();
-
     void setView(CoffeeOrderView view);
 
-    void saveCoffeeOrderList();
+    void updateCoffeeOrder(Coffee coffee, int count, CoffeeCountPicker.CoffeeOrderOperation operation);
+
+    void savePresenterData(Bundle outState);
+
+    void restorePresenterData(Bundle savedInstanceState);
+
+    void activityResults(int requestCode, int resultCode, Intent data);
+
+    void showDetail();
 
     void onPause();
 
