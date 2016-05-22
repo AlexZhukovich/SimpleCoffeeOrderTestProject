@@ -1,5 +1,6 @@
 package com.alexzh.simplecoffeeorder.presentation;
 
+import android.app.Activity;
 import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
@@ -23,7 +24,15 @@ public class CoffeeDetailPresenterImpl implements CoffeeDetailPresenter {
         this.mView = view;
 
         if (intent != null && intent.getExtras() != null) {
-            mCoffeeOrderMap = (HashMap<Coffee, Integer>) intent.getExtras().getSerializable(PaymentActivity.ORDER_LIST);
+            mCoffeeOrderMap = new HashMap<>();
+            HashMap<Coffee, Integer> orderedCoffeeMap  = (HashMap<Coffee, Integer>) intent.getExtras().getSerializable(PaymentActivity.ORDER_LIST);
+            if (orderedCoffeeMap != null && orderedCoffeeMap.size() > 0) {
+                for (Coffee coffee : orderedCoffeeMap.keySet()) {
+                    if (orderedCoffeeMap.get(coffee) != 0) {
+                        mCoffeeOrderMap.put(coffee, orderedCoffeeMap.get(coffee));
+                    }
+                }
+            }
         } else {
             mCoffeeOrderMap = new HashMap<>();
         }
@@ -51,10 +60,17 @@ public class CoffeeDetailPresenterImpl implements CoffeeDetailPresenter {
 
     @Override
     public void payForCoffee(Context context) {
+        sendNotification(context);
+
+        ((Activity)context).setResult(Activity.RESULT_OK);
+        ((Activity) context).finish();
+    }
+
+    private void sendNotification(Context context) {
         NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context);
         mBuilder.setSmallIcon(R.drawable.ic_report_notif);
         mBuilder.setContentTitle("Coffee order app");
-        mBuilder.setContentText("Thank you for your payment");
+        mBuilder.setContentText("Thank you for your payment.");
         NotificationManager mNotificationManager = (NotificationManager)
                 context.getSystemService(Context.NOTIFICATION_SERVICE);
         mNotificationManager.notify(NOTIFICATION_ID, mBuilder.build());

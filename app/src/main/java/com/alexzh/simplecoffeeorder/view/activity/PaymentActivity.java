@@ -74,8 +74,7 @@ public class PaymentActivity extends AppCompatActivity implements CoffeeDetailVi
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.pay:
-                mDetailPresenter.payForCoffee(getApplicationContext());
-                onBackPressed();
+                mDetailPresenter.payForCoffee(PaymentActivity.this);
                 break;
         }
     }
