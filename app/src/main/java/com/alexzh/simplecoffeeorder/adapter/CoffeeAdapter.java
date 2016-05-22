@@ -2,7 +2,6 @@ package com.alexzh.simplecoffeeorder.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -72,7 +71,6 @@ public class CoffeeAdapter extends RecyclerView.Adapter<CoffeeAdapter.ViewHolder
         holder.mCoffeeCountPicker.setOnCoffeeCountPickerListener(new CoffeeCountPicker.OnCoffeeCountPickerListener() {
             @Override
             public void onPickerChanged(int coffeeCount, CoffeeCountPicker.CoffeeOrderOperation operation) {
-                Log.d("onPickerChanged", "count = "+coffeeCount + "; operation = "+operation);
                 if (mListener != null && mCoffeeList != null) {
                     mListener.onCoffeeChanged(mCoffeeList.get(position), operation, holder.mCoffeeCountPicker.getCoffeeCount());
                 }
