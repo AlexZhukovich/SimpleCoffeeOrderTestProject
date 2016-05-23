@@ -52,7 +52,7 @@ public class FullOrderTest {
     }
 
     @Test
-    public void shouldOrderThreeEspresso() {
+    public void shouldOrderThreeEspressos() {
         final String espresso = "Espresso";
         final String espressoCount = "3";
         final float totalCoffeePrice = 15.0f;
