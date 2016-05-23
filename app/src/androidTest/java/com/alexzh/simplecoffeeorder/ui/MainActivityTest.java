@@ -7,7 +7,6 @@ import android.support.test.runner.AndroidJUnit4;
 import com.alexzh.simplecoffeeorder.CoffeeService;
 import com.alexzh.simplecoffeeorder.R;
 import com.alexzh.simplecoffeeorder.ServiceIdlingResource;
-import com.alexzh.simplecoffeeorder.actions.RecyclerChildViewActions;
 import com.alexzh.simplecoffeeorder.model.Coffee;
 import com.alexzh.simplecoffeeorder.view.activity.MainActivity;
 
@@ -26,11 +25,19 @@ import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.hasDescendant;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
+import static com.alexzh.simplecoffeeorder.actions.RecyclerChildViewActions.checkTextViewByChildViewWithId;
+import static com.alexzh.simplecoffeeorder.actions.RecyclerChildViewActions.checkTextViewCountForCoffee;
+import static com.alexzh.simplecoffeeorder.actions.RecyclerChildViewActions.clickToViewChildItem;
+import static com.alexzh.simplecoffeeorder.utils.StringUtils.getString;
 
 @RunWith(AndroidJUnit4.class)
 public class MainActivityTest {
     private List<Coffee> mCoffeeList;
     private ServiceIdlingResource mServiceIdlingResource;
+
+    @Rule
+    public ActivityTestRule<MainActivity> mActivityRule =
+            new ActivityTestRule<>(MainActivity.class);
 
     @Before
     public void setup() {
@@ -41,10 +48,6 @@ public class MainActivityTest {
         registerIdlingResources(mServiceIdlingResource);
     }
 
-    @Rule
-    public ActivityTestRule<MainActivity> mActivityRule =
-            new ActivityTestRule<>(MainActivity.class);
-
     @Test
     public void shouldDisplayCoffeeOrderList() {
         onView(withId(R.id.recyclerView)).perform(RecyclerViewActions.scrollToPosition(mCoffeeList.size() - 1));
@@ -53,7 +56,7 @@ public class MainActivityTest {
             onView(withId(R.id.recyclerView))
                     .perform(RecyclerViewActions.actionOnItem(
                             hasDescendant(withText(coffee.getName())),
-                            RecyclerChildViewActions.checkTextViewByChildViewWithId(R.id.coffee_count, "0")));
+                            checkTextViewByChildViewWithId(R.id.coffee_count, "0")));
         }
     }
 
@@ -69,44 +72,30 @@ public class MainActivityTest {
         final String coffeeZoro = coffeeList.get(7).getName();
         final float coffeeZoroPrice = coffeeList.get(7).getPrice();
 
-        clickToChildItem(espresso, R.id.coffee_increment);
-        checkCoffeeCountForCoffee(espresso, ++espressoCount);
+        clickToViewChildItem(R.id.recyclerView, espresso, R.id.coffee_increment);
+        checkTextViewCountForCoffee(R.id.recyclerView, R.id.coffee_count, espresso, String.valueOf(++espressoCount));
         totalCoffeePrice += espressoPrice;
-        onView(withId(R.id.total_price_toolbar)).check(matches(withText(mActivityRule.getActivity().getString(R.string.price, totalCoffeePrice))));
+        onView(withId(R.id.total_price_toolbar)).check(matches(withText(getString(mActivityRule, R.string.price, totalCoffeePrice))));
 
-        clickToChildItem(espresso, R.id.coffee_increment);
-        checkCoffeeCountForCoffee(espresso, ++espressoCount);
+        clickToViewChildItem(R.id.recyclerView, espresso, R.id.coffee_increment);
+        checkTextViewCountForCoffee(R.id.recyclerView, R.id.coffee_count, espresso, String.valueOf(++espressoCount));
         totalCoffeePrice += espressoPrice;
-        onView(withId(R.id.total_price_toolbar)).check(matches(withText(mActivityRule.getActivity().getString(R.string.price, totalCoffeePrice))));
+        onView(withId(R.id.total_price_toolbar)).check(matches(withText(getString(mActivityRule, R.string.price, totalCoffeePrice))));
 
-        clickToChildItem(espresso, R.id.coffee_decrement);
-        checkCoffeeCountForCoffee(espresso, --espressoCount);
+        clickToViewChildItem(R.id.recyclerView, espresso, R.id.coffee_decrement);
+        checkTextViewCountForCoffee(R.id.recyclerView, R.id.coffee_count, espresso, String.valueOf(--espressoCount));
         totalCoffeePrice -= espressoPrice;
-        onView(withId(R.id.total_price_toolbar)).check(matches(withText(mActivityRule.getActivity().getString(R.string.price, totalCoffeePrice))));
+        onView(withId(R.id.total_price_toolbar)).check(matches(withText(getString(mActivityRule, R.string.price, totalCoffeePrice))));
 
-        clickToChildItem(espresso, R.id.coffee_decrement);
-        checkCoffeeCountForCoffee(espresso, --espressoCount);
+        clickToViewChildItem(R.id.recyclerView, espresso, R.id.coffee_decrement);
+        checkTextViewCountForCoffee(R.id.recyclerView, R.id.coffee_count, espresso, String.valueOf(--espressoCount));
         totalCoffeePrice -= espressoPrice;
-        onView(withId(R.id.total_price_toolbar)).check(matches(withText(mActivityRule.getActivity().getString(R.string.price, totalCoffeePrice))));
+        onView(withId(R.id.total_price_toolbar)).check(matches(withText(getString(mActivityRule, R.string.price, totalCoffeePrice))));
 
-        clickToChildItem(coffeeZoro, R.id.coffee_increment);
-        checkCoffeeCountForCoffee(coffeeZoro, ++coffeeZoroCount);
+        clickToViewChildItem(R.id.recyclerView, coffeeZoro, R.id.coffee_increment);
+        checkTextViewCountForCoffee(R.id.recyclerView, R.id.coffee_count, coffeeZoro, String.valueOf(++coffeeZoroCount));
         totalCoffeePrice += coffeeZoroPrice;
-        onView(withId(R.id.total_price_toolbar)).check(matches(withText(mActivityRule.getActivity().getString(R.string.price, totalCoffeePrice))));
-    }
-
-    private void clickToChildItem(String item, int childId) {
-        onView(withId(R.id.recyclerView))
-                .perform(RecyclerViewActions.actionOnItem(
-                        hasDescendant(withText(item)),
-                        RecyclerChildViewActions.clickByChildViewWithId(childId)));
-    }
-
-    private void checkCoffeeCountForCoffee(String coffee, int count) {
-        onView(withId(R.id.recyclerView))
-                .perform(RecyclerViewActions.actionOnItem(
-                        hasDescendant(withText(coffee)),
-                        RecyclerChildViewActions.checkTextViewByChildViewWithId(R.id.coffee_count, String.valueOf(count))));
+        onView(withId(R.id.total_price_toolbar)).check(matches(withText(getString(mActivityRule, R.string.price, totalCoffeePrice))));
     }
 
     @After

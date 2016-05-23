@@ -24,6 +24,7 @@ import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
+import static com.alexzh.simplecoffeeorder.utils.StringUtils.getString;
 import static org.hamcrest.Matchers.anything;
 
 @RunWith(AndroidJUnit4.class)
@@ -52,6 +53,6 @@ public class PaymentActivityTest {
         mActivityRule.launchActivity(intent);
 
         onData(anything()).atPosition(0).onChildView(withId(R.id.coffee_name)).check(matches(withText("Espresso")));
-        onView(withId(R.id.total_price_toolbar)).check(matches(withText(mActivityRule.getActivity().getString(R.string.price, totalPrice))));
+        onView(withId(R.id.total_price_toolbar)).check(matches(withText(getString(mActivityRule, R.string.price, totalPrice))));
     }
 }
