@@ -2,6 +2,7 @@ package com.alexzh.simplecoffeeorder.view.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -106,6 +107,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void displayTotalPrice(float totalPrice) {
         mTotalPriceToolBar.setText(getString(R.string.price, totalPrice));
+    }
+
+    @Override
+    public void displaySnackbar(int resId, int duration) {
+        Snackbar.make(mRecyclerView, resId, duration).show();
     }
 
     @Override

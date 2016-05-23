@@ -6,10 +6,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v4.content.LocalBroadcastManager;
 import android.widget.Toast;
 
 import com.alexzh.simplecoffeeorder.CoffeeService;
+import com.alexzh.simplecoffeeorder.R;
 import com.alexzh.simplecoffeeorder.customview.CoffeeCountPicker;
 import com.alexzh.simplecoffeeorder.model.Coffee;
 import com.alexzh.simplecoffeeorder.view.CoffeeOrderView;
@@ -100,8 +102,11 @@ public class CoffeeOrderPresenterImpl implements CoffeeOrderPresenter {
     @Override
     public void showDetail() {
         Intent intent = PaymentActivity.createIntent(mContext, mCoffeeOrderMap);
-
-        ((Activity) mContext).startActivityForResult(intent, PAYMENT_REQUEST);
+        if (calculatePrice() > 0) {
+            ((Activity) mContext).startActivityForResult(intent, PAYMENT_REQUEST);
+        } else {
+            mView.displaySnackbar(R.string.message_more_coffee, Snackbar.LENGTH_SHORT);
+        }
     }
 
     @Override
