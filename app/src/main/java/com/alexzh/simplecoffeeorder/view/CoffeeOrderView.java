@@ -11,6 +11,8 @@ public interface CoffeeOrderView {
 
     void displayTotalPrice(float totalPrice);
 
+    void displaySnackbar(int resId, int duration);
+
     void showLoading();
 
     void hideLoading();
