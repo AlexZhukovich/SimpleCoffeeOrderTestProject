@@ -52,7 +52,7 @@ public class FullOrderTest {
     }
 
     @Test
-    public void orderThreeEspresso() {
+    public void shouldOrderThreeEspresso() {
         final String espresso = "Espresso";
         final String espressoCount = "3";
         final float totalCoffeePrice = 15.0f;
@@ -65,37 +65,39 @@ public class FullOrderTest {
         clickToViewChildItem(R.id.recyclerView, espresso, R.id.coffee_increment);
 
         checkTextViewCountForCoffee(R.id.recyclerView, R.id.coffee_count, espresso, String.valueOf(espressoCount));
-        onView(withId(R.id.total_price_toolbar)).check(matches(withText(getString(mActivityRule, R.string.price, totalCoffeePrice))));
-
+        onView(withId(R.id.total_price_toolbar))
+                .check(matches(withText(getString(mActivityRule, R.string.price, totalCoffeePrice))));
         onView(withId(R.id.pay)).perform(click());
 
-        onData(anything()).atPosition(0).onChildView(withId(R.id.coffee_name)).check(matches(withText(espresso)));
-        onData(anything()).atPosition(0).onChildView(withId(R.id.coffee_count)).check(matches(withText(espressoCount)));
-        onData(anything()).atPosition(0).onChildView(withId(R.id.coffee_price)).check(matches(withText(getString(mActivityRule, R.string.price, coffeePrice))));
-        onData(anything()).atPosition(0).onChildView(withId(R.id.total_price)).check(matches(withText(getString(mActivityRule, R.string.price, totalCoffeePrice))));
-
+        checkCoffeeListViewItem(espresso, espressoCount, coffeePrice, totalCoffeePrice);
         onView(withId(R.id.pay)).perform(click());
 
         mDevice.openNotification();
         mDevice.wait(Until.hasObject(By.text(notificationTitle)), 3000);
         UiObject2 title = mDevice.findObject(By.text(notificationTitle));
         UiObject2 text = mDevice.findObject(By.text(notificationText));
-
         assertEquals(notificationTitle, title.getText());
         assertEquals(notificationText, text.getText());
-
         title.click();
 
-        onData(anything()).atPosition(0).onChildView(withId(R.id.coffee_name)).check(matches(withText(espresso)));
-        onData(anything()).atPosition(0).onChildView(withId(R.id.coffee_count)).check(matches(withText(espressoCount)));
-        onData(anything()).atPosition(0).onChildView(withId(R.id.coffee_price)).check(matches(withText(getString(mActivityRule, R.string.price, coffeePrice))));
-        onData(anything()).atPosition(0).onChildView(withId(R.id.total_price)).check(matches(withText(getString(mActivityRule, R.string.price, totalCoffeePrice))));
+        checkCoffeeListViewItem(espresso, espressoCount, coffeePrice, totalCoffeePrice);
     }
 
     @After
     public void tearDown() {
         unregisterIdlingResources(mServiceIdlingResource);
         mDevice.pressBack();
+    }
+
+    private void checkCoffeeListViewItem(String name, String count, float coffeePrice, float totalCoffeePrice) {
+        onData(anything()).atPosition(0).onChildView(withId(R.id.coffee_name))
+                .check(matches(withText(name)));
+        onData(anything()).atPosition(0).onChildView(withId(R.id.coffee_count))
+                .check(matches(withText(count)));
+        onData(anything()).atPosition(0).onChildView(withId(R.id.coffee_price))
+                .check(matches(withText(getString(mActivityRule, R.string.price, coffeePrice))));
+        onData(anything()).atPosition(0).onChildView(withId(R.id.total_price))
+                .check(matches(withText(getString(mActivityRule, R.string.price, totalCoffeePrice))));
     }
 
 }
