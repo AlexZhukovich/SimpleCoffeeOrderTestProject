@@ -3,6 +3,7 @@ package com.alexzh.simplecoffeeorder.actions;
 import android.support.test.espresso.UiController;
 import android.support.test.espresso.ViewAction;
 import android.support.test.espresso.action.TypeTextAction;
+import android.support.test.espresso.contrib.RecyclerViewActions;
 import android.view.View;
 import android.widget.TextView;
 
@@ -11,6 +12,10 @@ import com.alexzh.simplecoffeeorder.R;
 import org.hamcrest.Matcher;
 import org.w3c.dom.Text;
 
+import static android.support.test.espresso.Espresso.onView;
+import static android.support.test.espresso.matcher.ViewMatchers.hasDescendant;
+import static android.support.test.espresso.matcher.ViewMatchers.withId;
+import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static org.junit.Assert.assertEquals;
 
 public class RecyclerChildViewActions {
@@ -57,5 +62,19 @@ public class RecyclerChildViewActions {
                 }
             }
         };
+    }
+
+    public static void clickToViewChildItem(int recyclerViewId, String item, int childId) {
+        onView(withId(recyclerViewId))
+                .perform(RecyclerViewActions.actionOnItem(
+                        hasDescendant(withText(item)),
+                        RecyclerChildViewActions.clickByChildViewWithId(childId)));
+    }
+
+    public static void checkTextViewCountForCoffee(int recyclerViewId, int childId, String coffee, String count) {
+        onView(withId(recyclerViewId))
+                .perform(RecyclerViewActions.actionOnItem(
+                        hasDescendant(withText(coffee)),
+                        RecyclerChildViewActions.checkTextViewByChildViewWithId(childId, count)));
     }
 }
