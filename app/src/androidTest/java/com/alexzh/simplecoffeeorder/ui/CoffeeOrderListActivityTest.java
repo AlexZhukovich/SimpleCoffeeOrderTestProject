@@ -8,7 +8,7 @@ import com.alexzh.simplecoffeeorder.CoffeeService;
 import com.alexzh.simplecoffeeorder.R;
 import com.alexzh.simplecoffeeorder.ServiceIdlingResource;
 import com.alexzh.simplecoffeeorder.model.Coffee;
-import com.alexzh.simplecoffeeorder.view.activity.MainActivity;
+import com.alexzh.simplecoffeeorder.view.activity.CoffeeOrderListActivity;
 
 import org.junit.After;
 import org.junit.Before;
@@ -31,13 +31,13 @@ import static com.alexzh.simplecoffeeorder.actions.RecyclerChildViewActions.clic
 import static com.alexzh.simplecoffeeorder.utils.StringUtils.getString;
 
 @RunWith(AndroidJUnit4.class)
-public class MainActivityTest {
+public class CoffeeOrderListActivityTest {
     private List<Coffee> mCoffeeList;
     private ServiceIdlingResource mServiceIdlingResource;
 
     @Rule
-    public ActivityTestRule<MainActivity> mActivityRule =
-            new ActivityTestRule<>(MainActivity.class);
+    public ActivityTestRule<CoffeeOrderListActivity> mActivityRule =
+            new ActivityTestRule<>(CoffeeOrderListActivity.class);
 
     @Before
     public void setup() {

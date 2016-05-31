@@ -2,7 +2,7 @@ package com.alexzh.simplecoffeeorder.presentation;
 
 import android.content.Context;
 
-public interface CoffeeDetailPresenter {
+public interface CoffeeOrderDetailsPresenter {
 
     void onResume();
 

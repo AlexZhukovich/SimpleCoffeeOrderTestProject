@@ -10,7 +10,7 @@ import com.alexzh.simplecoffeeorder.view.CoffeeOrderView;
 /**
  * Created by alex on 5/19/16.
  */
-public interface CoffeeOrderPresenter {
+public interface CoffeeOrderListPresenter {
 
     void onResume();
 

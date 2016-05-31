@@ -15,13 +15,13 @@ import com.alexzh.simplecoffeeorder.R;
 import com.alexzh.simplecoffeeorder.adapter.CoffeeAdapter;
 import com.alexzh.simplecoffeeorder.customview.CoffeeCountPicker;
 import com.alexzh.simplecoffeeorder.model.Coffee;
-import com.alexzh.simplecoffeeorder.presentation.CoffeeOrderPresenter;
-import com.alexzh.simplecoffeeorder.presentation.CoffeeOrderPresenterImpl;
-import com.alexzh.simplecoffeeorder.view.CoffeeOrderView;
+import com.alexzh.simplecoffeeorder.presentation.CoffeeOrderListPresenter;
+import com.alexzh.simplecoffeeorder.presentation.CoffeeOrderListPresenterImpl;
+import com.alexzh.simplecoffeeorder.view.CoffeeOrderListView;
 
 import java.util.HashMap;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener, CoffeeOrderView {
+public class CoffeeOrderListActivity extends AppCompatActivity implements View.OnClickListener, CoffeeOrderListView {
     private final static String COFFEE_COUNT = "coffee_count";
 
     private AppCompatTextView mTotalPriceToolBar;
@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private ProgressBar mProgressBar;
 
-    private CoffeeOrderPresenter mCoffeeOrderPresenter;
+    private CoffeeOrderListPresenter mCoffeeOrderListPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,26 +48,26 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void onCoffeeChanged(Coffee coffee, CoffeeCountPicker.CoffeeOrderOperation operation, int count) {
                 if (operation != CoffeeCountPicker.CoffeeOrderOperation.INIT) {
-                    mCoffeeOrderPresenter.updateCoffeeOrder(coffee, count, operation);
+                    mCoffeeOrderListPresenter.updateCoffeeOrder(coffee, count, operation);
                 }
             }
         });
         mRecyclerView.setAdapter(mAdapter);
         findViewById(R.id.pay).setOnClickListener(this);
-        mCoffeeOrderPresenter = new CoffeeOrderPresenterImpl(this, this);
+        mCoffeeOrderListPresenter = new CoffeeOrderListPresenterImpl(this, this);
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        mCoffeeOrderPresenter.activityResults(requestCode, resultCode, data);
+        mCoffeeOrderListPresenter.activityResults(requestCode, resultCode, data);
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.pay:
-                mCoffeeOrderPresenter.showDetail();
+                mCoffeeOrderListPresenter.showDetail();
                 break;
         }
     }
@@ -75,24 +75,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        mCoffeeOrderPresenter.savePresenterData(outState);
+        mCoffeeOrderListPresenter.savePresenterData(outState);
     }
 
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
-        mCoffeeOrderPresenter.restorePresenterData(savedInstanceState);
+        mCoffeeOrderListPresenter.restorePresenterData(savedInstanceState);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        mCoffeeOrderPresenter.onResume();
+        mCoffeeOrderListPresenter.onResume();
     }
 
     @Override
     protected void onPause() {
-        mCoffeeOrderPresenter.onPause();
+        mCoffeeOrderListPresenter.onPause();
         super.onPause();
     }
 

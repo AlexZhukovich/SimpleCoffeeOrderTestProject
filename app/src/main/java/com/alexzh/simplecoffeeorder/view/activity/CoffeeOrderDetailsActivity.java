@@ -15,11 +15,11 @@ import com.alexzh.simplecoffeeorder.adapter.DetailListViewAdapter;
 import com.alexzh.simplecoffeeorder.model.Coffee;
 import com.alexzh.simplecoffeeorder.presentation.CoffeeDetailPresenter;
 import com.alexzh.simplecoffeeorder.presentation.CoffeeDetailPresenterImpl;
-import com.alexzh.simplecoffeeorder.view.CoffeeDetailView;
+import com.alexzh.simplecoffeeorder.view.CoffeeOrderDetailsView;
 
 import java.util.HashMap;
 
-public class PaymentActivity extends AppCompatActivity implements CoffeeDetailView, View.OnClickListener {
+public class CoffeeOrderDetailsActivity extends AppCompatActivity implements CoffeeOrderDetailsView, View.OnClickListener {
     public final static String ORDER_LIST = "order_list";
 
     private TextView mTotalPrice;
@@ -27,7 +27,7 @@ public class PaymentActivity extends AppCompatActivity implements CoffeeDetailVi
     private CoffeeDetailPresenter mDetailPresenter;
 
     public static Intent createIntent(Context context, HashMap<Coffee, Integer> orderList) {
-        Intent intent = new Intent(context, PaymentActivity.class);
+        Intent intent = new Intent(context, CoffeeOrderDetailsActivity.class);
         intent.putExtra(ORDER_LIST, orderList);
         return intent;
     }
@@ -74,7 +74,7 @@ public class PaymentActivity extends AppCompatActivity implements CoffeeDetailVi
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.pay:
-                mDetailPresenter.payForCoffee(PaymentActivity.this);
+                mDetailPresenter.payForCoffee(CoffeeOrderDetailsActivity.this);
                 break;
         }
     }

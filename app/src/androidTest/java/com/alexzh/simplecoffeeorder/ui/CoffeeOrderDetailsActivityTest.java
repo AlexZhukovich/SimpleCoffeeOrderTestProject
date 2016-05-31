@@ -9,7 +9,7 @@ import android.support.test.runner.AndroidJUnit4;
 import com.alexzh.simplecoffeeorder.CoffeeService;
 import com.alexzh.simplecoffeeorder.R;
 import com.alexzh.simplecoffeeorder.model.Coffee;
-import com.alexzh.simplecoffeeorder.view.activity.PaymentActivity;
+import com.alexzh.simplecoffeeorder.view.activity.CoffeeOrderDetailsActivity;
 
 import org.junit.Before;
 import org.junit.Rule;
@@ -28,13 +28,13 @@ import static com.alexzh.simplecoffeeorder.utils.StringUtils.getString;
 import static org.hamcrest.Matchers.anything;
 
 @RunWith(AndroidJUnit4.class)
-public class PaymentActivityTest {
+public class CoffeeOrderDetailsActivityTest {
 
     private List<Coffee> mCoffeeList;
 
     @Rule
-    public ActivityTestRule<PaymentActivity> mActivityRule =
-            new ActivityTestRule<>(PaymentActivity.class, true, false);
+    public ActivityTestRule<CoffeeOrderDetailsActivity> mActivityRule =
+            new ActivityTestRule<>(CoffeeOrderDetailsActivity.class, true, false);
 
     @Before
     public void setup() {
@@ -49,7 +49,7 @@ public class PaymentActivityTest {
         totalPrice += (12 * mCoffeeList.get(0).getPrice());
 
         Context targetContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
-        Intent intent = PaymentActivity.createIntent(targetContext, coffeeOrderMap);
+        Intent intent = CoffeeOrderDetailsActivity.createIntent(targetContext, coffeeOrderMap);
         mActivityRule.launchActivity(intent);
 
         onData(anything()).atPosition(0).onChildView(withId(R.id.coffee_name)).check(matches(withText("Espresso")));

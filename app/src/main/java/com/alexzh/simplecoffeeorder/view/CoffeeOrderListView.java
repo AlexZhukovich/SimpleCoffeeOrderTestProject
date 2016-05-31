@@ -5,7 +5,7 @@ import com.alexzh.simplecoffeeorder.model.Coffee;
 import java.util.HashMap;
 import java.util.List;
 
-public interface CoffeeOrderView {
+public interface CoffeeOrderListView {
 
     void displayCoffeeList(HashMap<Coffee, Integer> coffeeOrderMap);
 

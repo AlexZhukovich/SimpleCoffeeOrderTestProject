@@ -8,19 +8,18 @@ import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.LocalBroadcastManager;
-import android.widget.Toast;
 
 import com.alexzh.simplecoffeeorder.CoffeeService;
 import com.alexzh.simplecoffeeorder.R;
 import com.alexzh.simplecoffeeorder.customview.CoffeeCountPicker;
 import com.alexzh.simplecoffeeorder.model.Coffee;
 import com.alexzh.simplecoffeeorder.view.CoffeeOrderView;
-import com.alexzh.simplecoffeeorder.view.activity.PaymentActivity;
+import com.alexzh.simplecoffeeorder.view.activity.CoffeeOrderDetailsActivity;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class CoffeeOrderPresenterImpl implements CoffeeOrderPresenter {
+public class CoffeeOrderListPresenterImpl implements CoffeeOrderListPresenter {
     private static final int PAYMENT_REQUEST = 1;
     private final static String COFFEE_ORDERED_MAP = "coffee_ordered_map";
     private HashMap<Coffee, Integer> mCoffeeOrderMap;
@@ -31,7 +30,7 @@ public class CoffeeOrderPresenterImpl implements CoffeeOrderPresenter {
     private IntentFilter mIntentFilter;
     private Context mContext;
 
-    public CoffeeOrderPresenterImpl(Context context, CoffeeOrderView coffeeOrderView) {
+    public CoffeeOrderListPresenterImpl(Context context, CoffeeOrderView coffeeOrderView) {
         mContext = context;
         mView = coffeeOrderView;
         mBroadcastManager = LocalBroadcastManager.getInstance(mContext);
@@ -101,7 +100,7 @@ public class CoffeeOrderPresenterImpl implements CoffeeOrderPresenter {
 
     @Override
     public void showDetail() {
-        Intent intent = PaymentActivity.createIntent(mContext, mCoffeeOrderMap);
+        Intent intent = CoffeeOrderDetailsActivity.createIntent(mContext, mCoffeeOrderMap);
         if (calculatePrice() > 0) {
             ((Activity) mContext).startActivityForResult(intent, PAYMENT_REQUEST);
         } else {
