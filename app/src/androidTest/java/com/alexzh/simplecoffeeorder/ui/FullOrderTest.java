@@ -10,7 +10,7 @@ import android.support.test.uiautomator.Until;
 
 import com.alexzh.simplecoffeeorder.R;
 import com.alexzh.simplecoffeeorder.ServiceIdlingResource;
-import com.alexzh.simplecoffeeorder.view.activity.MainActivity;
+import com.alexzh.simplecoffeeorder.view.activity.CoffeeOrderListActivity;
 
 import org.junit.After;
 import org.junit.Before;
@@ -38,8 +38,8 @@ public class FullOrderTest {
     private ServiceIdlingResource mServiceIdlingResource;
 
     @Rule
-    public ActivityTestRule<MainActivity> mActivityRule =
-            new ActivityTestRule<>(MainActivity.class);
+    public ActivityTestRule<CoffeeOrderListActivity> mActivityRule =
+            new ActivityTestRule<>(CoffeeOrderListActivity.class);
 
 
     @Before

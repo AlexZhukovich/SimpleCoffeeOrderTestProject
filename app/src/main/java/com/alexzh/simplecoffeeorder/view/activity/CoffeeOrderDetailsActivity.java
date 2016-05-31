@@ -13,8 +13,8 @@ import android.widget.TextView;
 import com.alexzh.simplecoffeeorder.R;
 import com.alexzh.simplecoffeeorder.adapter.DetailListViewAdapter;
 import com.alexzh.simplecoffeeorder.model.Coffee;
-import com.alexzh.simplecoffeeorder.presentation.CoffeeDetailPresenter;
-import com.alexzh.simplecoffeeorder.presentation.CoffeeDetailPresenterImpl;
+import com.alexzh.simplecoffeeorder.presentation.CoffeeOrderDetailsPresenter;
+import com.alexzh.simplecoffeeorder.presentation.CoffeeOrderDetailsPresenterImpl;
 import com.alexzh.simplecoffeeorder.view.CoffeeOrderDetailsView;
 
 import java.util.HashMap;
@@ -24,7 +24,7 @@ public class CoffeeOrderDetailsActivity extends AppCompatActivity implements Cof
 
     private TextView mTotalPrice;
     private DetailListViewAdapter mAdapter;
-    private CoffeeDetailPresenter mDetailPresenter;
+    private CoffeeOrderDetailsPresenter mDetailPresenter;
 
     public static Intent createIntent(Context context, HashMap<Coffee, Integer> orderList) {
         Intent intent = new Intent(context, CoffeeOrderDetailsActivity.class);
@@ -35,10 +35,10 @@ public class CoffeeOrderDetailsActivity extends AppCompatActivity implements Cof
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_payment);
+        setContentView(R.layout.activity_coffee_order_details);
 
         mTotalPrice = (TextView) findViewById(R.id.total_price_toolbar);
-        mDetailPresenter = new CoffeeDetailPresenterImpl(getIntent(), this);
+        mDetailPresenter = new CoffeeOrderDetailsPresenterImpl(getIntent(), this);
 
         ListView detailListView = (ListView) findViewById(R.id.detail_list);
         mAdapter = new DetailListViewAdapter(this, null);

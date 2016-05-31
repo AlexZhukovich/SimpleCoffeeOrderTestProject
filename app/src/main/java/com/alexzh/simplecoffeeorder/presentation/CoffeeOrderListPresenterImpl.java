@@ -8,12 +8,14 @@ import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.LocalBroadcastManager;
+import android.widget.Toast;
 
 import com.alexzh.simplecoffeeorder.CoffeeService;
 import com.alexzh.simplecoffeeorder.R;
 import com.alexzh.simplecoffeeorder.customview.CoffeeCountPicker;
 import com.alexzh.simplecoffeeorder.model.Coffee;
-import com.alexzh.simplecoffeeorder.view.CoffeeOrderView;
+import com.alexzh.simplecoffeeorder.view.CoffeeOrderListView;
+import com.alexzh.simplecoffeeorder.view.activity.CoffeeDetailActivity;
 import com.alexzh.simplecoffeeorder.view.activity.CoffeeOrderDetailsActivity;
 
 import java.util.ArrayList;
@@ -24,15 +26,15 @@ public class CoffeeOrderListPresenterImpl implements CoffeeOrderListPresenter {
     private final static String COFFEE_ORDERED_MAP = "coffee_ordered_map";
     private HashMap<Coffee, Integer> mCoffeeOrderMap;
 
-    private CoffeeOrderView mView;
+    private CoffeeOrderListView mView;
     private LocalBroadcastManager mBroadcastManager;
     private BroadcastReceiver mReceiver;
     private IntentFilter mIntentFilter;
     private Context mContext;
 
-    public CoffeeOrderListPresenterImpl(Context context, CoffeeOrderView coffeeOrderView) {
+    public CoffeeOrderListPresenterImpl(Context context, CoffeeOrderListView coffeeOrderListView) {
         mContext = context;
-        mView = coffeeOrderView;
+        mView = coffeeOrderListView;
         mBroadcastManager = LocalBroadcastManager.getInstance(mContext);
 
         mCoffeeOrderMap = new HashMap<>();
@@ -66,7 +68,7 @@ public class CoffeeOrderListPresenterImpl implements CoffeeOrderListPresenter {
     }
 
     @Override
-    public void setView(CoffeeOrderView view) {
+    public void setView(CoffeeOrderListView view) {
         mView = view;
     }
 
@@ -96,6 +98,13 @@ public class CoffeeOrderListPresenterImpl implements CoffeeOrderListPresenter {
             mView.displayCoffeeList(mCoffeeOrderMap);
             mView.displayTotalPrice(calculatePrice());
         }
+    }
+
+    @Override
+    public void onClickCoffeeList(int position) {
+        Coffee coffee = (Coffee) mCoffeeOrderMap.keySet().toArray()[position];
+        mContext.startActivity(CoffeeDetailActivity.createCoffeeDetailIntent(mContext, coffee.getName()));
+        Toast.makeText(mContext, "#"+position, Toast.LENGTH_SHORT).show();
     }
 
     @Override
