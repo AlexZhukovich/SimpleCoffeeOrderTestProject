@@ -14,11 +14,11 @@ import com.alexzh.simplecoffeeorder.utils.CoffeeOrderUtils;
 
 import java.util.HashMap;
 
-public class DetailListViewAdapter extends BaseAdapter {
+public class CoffeeOrderDetailListViewAdapter extends BaseAdapter {
     private HashMap<Coffee, Integer> mOrderedCoffee;
     private Context mContext;
 
-    public DetailListViewAdapter(Context context, HashMap<Coffee, Integer> orderedCoffee) {
+    public CoffeeOrderDetailListViewAdapter(Context context, HashMap<Coffee, Integer> orderedCoffee) {
         this.mOrderedCoffee = orderedCoffee;
         this.mContext = context;
     }
@@ -48,7 +48,7 @@ public class DetailListViewAdapter extends BaseAdapter {
         ViewHolder viewHolder;
         if (convertView == null) {
             LayoutInflater inflater = ((Activity) mContext).getLayoutInflater();
-            convertView = inflater.inflate(R.layout.item_coffee_detail, parent, false);
+            convertView = inflater.inflate(R.layout.item_coffee_order_detail, parent, false);
 
             viewHolder = new ViewHolder();
             viewHolder.mCoffeeName = (TextView) convertView.findViewById(R.id.coffee_name);

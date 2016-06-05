@@ -15,20 +15,20 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class CoffeeAdapter extends RecyclerView.Adapter<CoffeeAdapter.ViewHolder> {
+public class CoffeeOrderListAdapter extends RecyclerView.Adapter<CoffeeOrderListAdapter.ViewHolder> {
     public interface CoffeeOrderListener {
         void onCoffeeChanged(Coffee coffee, CoffeeCountPicker.CoffeeOrderOperation operation, int count);
     }
 
     private int[] countArray;
     private List<Coffee> mCoffeeList;
-    private CoffeeOrderListener mListener;
+    private CoffeeOrderListener mCoffeeOrderListener;
     private Context mContext;
+    private View.OnClickListener mClickListener;
 
-    public CoffeeAdapter(Context context, HashMap<Coffee, Integer> coffeeOrderMap, CoffeeOrderListener listener) {
+    public CoffeeOrderListAdapter(Context context, HashMap<Coffee, Integer> coffeeOrderMap) {
 
         this.mContext = context;
-        mListener = listener;
         mCoffeeList = new ArrayList<>();
         countArray = new int[coffeeOrderMap == null ? 0 : coffeeOrderMap.size()];
         int position = 0;
@@ -39,6 +39,14 @@ public class CoffeeAdapter extends RecyclerView.Adapter<CoffeeAdapter.ViewHolder
                 position++;
             }
         }
+    }
+
+    public void setCoffeeOrderListener(CoffeeOrderListener listener) {
+        this.mCoffeeOrderListener = listener;
+    }
+
+    public void setOnClickListener(View.OnClickListener listener) {
+        this.mClickListener = listener;
     }
 
     public void setCoffeeList(HashMap<Coffee, Integer> coffeeOrderMap) {
@@ -59,7 +67,7 @@ public class CoffeeAdapter extends RecyclerView.Adapter<CoffeeAdapter.ViewHolder
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         View itemView = inflater.inflate(R.layout.item_coffee, parent, false);
-        return new ViewHolder(itemView);
+        return new ViewHolder(itemView, mClickListener);
     }
 
     @Override
@@ -71,8 +79,8 @@ public class CoffeeAdapter extends RecyclerView.Adapter<CoffeeAdapter.ViewHolder
         holder.mCoffeeCountPicker.setOnCoffeeCountPickerListener(new CoffeeCountPicker.OnCoffeeCountPickerListener() {
             @Override
             public void onPickerChanged(int coffeeCount, CoffeeCountPicker.CoffeeOrderOperation operation) {
-                if (mListener != null && mCoffeeList != null) {
-                    mListener.onCoffeeChanged(mCoffeeList.get(position), operation, holder.mCoffeeCountPicker.getCoffeeCount());
+                if (mCoffeeOrderListener != null && mCoffeeList != null) {
+                    mCoffeeOrderListener.onCoffeeChanged(mCoffeeList.get(position), operation, holder.mCoffeeCountPicker.getCoffeeCount());
                 }
                 countArray[position] = coffeeCount;
             }
@@ -93,12 +101,15 @@ public class CoffeeAdapter extends RecyclerView.Adapter<CoffeeAdapter.ViewHolder
         private TextView mCoffeePrice;
         private CoffeeCountPicker mCoffeeCountPicker;
 
-        public ViewHolder(View itemView) {
+        public ViewHolder(View itemView, View.OnClickListener listener) {
             super(itemView);
 
             mCoffeeName = (TextView) itemView.findViewById(R.id.coffee_name);
             mCoffeePrice = (TextView) itemView.findViewById(R.id.coffee_price);
             mCoffeeCountPicker = (CoffeeCountPicker) itemView.findViewById(R.id.coffee_count_picker);
+            if (listener != null) {
+                itemView.setOnClickListener(listener);
+            }
 
             itemView.setTag(itemView);
         }
