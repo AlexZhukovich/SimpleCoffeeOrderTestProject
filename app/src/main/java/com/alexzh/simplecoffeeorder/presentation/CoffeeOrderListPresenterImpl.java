@@ -8,7 +8,6 @@ import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.LocalBroadcastManager;
-import android.widget.Toast;
 
 import com.alexzh.simplecoffeeorder.CoffeeService;
 import com.alexzh.simplecoffeeorder.R;
@@ -103,8 +102,7 @@ public class CoffeeOrderListPresenterImpl implements CoffeeOrderListPresenter {
     @Override
     public void onClickCoffeeList(int position) {
         Coffee coffee = (Coffee) mCoffeeOrderMap.keySet().toArray()[position];
-        mContext.startActivity(CoffeeDetailActivity.createCoffeeDetailIntent(mContext, coffee.getName()));
-        Toast.makeText(mContext, "#"+position, Toast.LENGTH_SHORT).show();
+        mContext.startActivity(CoffeeDetailActivity.createCoffeeDetailIntent(mContext, coffee));
     }
 
     @Override
