@@ -11,7 +11,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.alexzh.simplecoffeeorder.R;
-import com.alexzh.simplecoffeeorder.adapter.DetailListViewAdapter;
+import com.alexzh.simplecoffeeorder.adapter.CoffeeOrderDetailListViewAdapter;
 import com.alexzh.simplecoffeeorder.model.Coffee;
 import com.alexzh.simplecoffeeorder.presentation.CoffeeOrderDetailsPresenter;
 import com.alexzh.simplecoffeeorder.presentation.CoffeeOrderDetailsPresenterImpl;
@@ -23,7 +23,7 @@ public class CoffeeOrderDetailsActivity extends AppCompatActivity implements Cof
     public final static String ORDER_LIST = "order_list";
 
     private TextView mTotalPrice;
-    private DetailListViewAdapter mAdapter;
+    private CoffeeOrderDetailListViewAdapter mAdapter;
     private CoffeeOrderDetailsPresenter mDetailPresenter;
 
     public static Intent createIntent(Context context, HashMap<Coffee, Integer> orderList) {
@@ -41,7 +41,7 @@ public class CoffeeOrderDetailsActivity extends AppCompatActivity implements Cof
         mDetailPresenter = new CoffeeOrderDetailsPresenterImpl(getIntent(), this);
 
         ListView detailListView = (ListView) findViewById(R.id.detail_list);
-        mAdapter = new DetailListViewAdapter(this, null);
+        mAdapter = new CoffeeOrderDetailListViewAdapter(this, null);
 
         if (detailListView != null) {
             detailListView.setAdapter(mAdapter);

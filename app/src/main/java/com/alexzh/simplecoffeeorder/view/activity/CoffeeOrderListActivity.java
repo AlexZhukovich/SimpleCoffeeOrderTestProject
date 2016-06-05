@@ -12,7 +12,7 @@ import android.view.View;
 import android.widget.ProgressBar;
 
 import com.alexzh.simplecoffeeorder.R;
-import com.alexzh.simplecoffeeorder.adapter.CoffeeAdapter;
+import com.alexzh.simplecoffeeorder.adapter.CoffeeOrderListAdapter;
 import com.alexzh.simplecoffeeorder.customview.CoffeeCountPicker;
 import com.alexzh.simplecoffeeorder.model.Coffee;
 import com.alexzh.simplecoffeeorder.presentation.CoffeeOrderListPresenter;
@@ -22,11 +22,9 @@ import com.alexzh.simplecoffeeorder.view.CoffeeOrderListView;
 import java.util.HashMap;
 
 public class CoffeeOrderListActivity extends AppCompatActivity implements View.OnClickListener, CoffeeOrderListView {
-    private final static String COFFEE_COUNT = "coffee_count";
-
     private AppCompatTextView mTotalPriceToolBar;
     private RecyclerView mRecyclerView;
-    private CoffeeAdapter mAdapter;
+    private CoffeeOrderListAdapter mAdapter;
 
     private ProgressBar mProgressBar;
 
@@ -35,7 +33,7 @@ public class CoffeeOrderListActivity extends AppCompatActivity implements View.O
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_coffee_order_list);
 
         mTotalPriceToolBar = (AppCompatTextView) findViewById(R.id.total_price_toolbar);
         mTotalPriceToolBar.setText(getString(R.string.price, 0.0f));
@@ -44,12 +42,20 @@ public class CoffeeOrderListActivity extends AppCompatActivity implements View.O
         mRecyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        mAdapter = new CoffeeAdapter(getApplicationContext(), null, new CoffeeAdapter.CoffeeOrderListener() {
+        mAdapter = new CoffeeOrderListAdapter(getApplicationContext(), null);
+        mAdapter.setCoffeeOrderListener(new CoffeeOrderListAdapter.CoffeeOrderListener() {
             @Override
             public void onCoffeeChanged(Coffee coffee, CoffeeCountPicker.CoffeeOrderOperation operation, int count) {
                 if (operation != CoffeeCountPicker.CoffeeOrderOperation.INIT) {
                     mCoffeeOrderListPresenter.updateCoffeeOrder(coffee, count, operation);
                 }
+            }
+        });
+        mAdapter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int pos = mRecyclerView.getChildAdapterPosition(v);
+                mCoffeeOrderListPresenter.onClickCoffeeList(pos);
             }
         });
         mRecyclerView.setAdapter(mAdapter);
