@@ -35,7 +35,7 @@ public class CoffeeOrderDetailListViewAdapter extends BaseAdapter {
 
     @Override
     public Object getItem(int position) {
-        return position;
+        return mOrderedCoffee.keySet().toArray()[position];
     }
 
     @Override
