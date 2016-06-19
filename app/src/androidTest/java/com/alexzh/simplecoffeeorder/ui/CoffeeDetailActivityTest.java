@@ -9,6 +9,7 @@ import android.support.test.runner.AndroidJUnit4;
 import com.alexzh.simplecoffeeorder.CoffeeService;
 import com.alexzh.simplecoffeeorder.R;
 import com.alexzh.simplecoffeeorder.model.Coffee;
+import com.alexzh.simplecoffeeorder.utils.CoffeeUtils;
 import com.alexzh.simplecoffeeorder.view.activity.CoffeeDetailActivity;
 
 import org.junit.Rule;
@@ -32,17 +33,10 @@ public class CoffeeDetailActivityTest {
     @Test
     public void shouldCheckIntentValues() {
         Coffee espresso = CoffeeService.getCoffeeData().get(0);
+        String ingredients = CoffeeUtils.getIngredientsString(espresso);
         Context targetContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
         Intent intent = CoffeeDetailActivity.createCoffeeDetailIntent(targetContext, espresso);
         mActivityRule.launchActivity(intent);
-
-        StringBuilder ingredients = new StringBuilder();
-        for (int i = 0; i < espresso.getIngredients().length; i++) {
-            ingredients.append(espresso.getIngredients()[i]);
-            if (i != espresso.getIngredients().length - 1) {
-                ingredients.append(",\n");
-            }
-        }
 
         onView(withId(R.id.anim_toolbar))
                 .check(matches(withToolbarTitle(is(espresso.getName()))));
