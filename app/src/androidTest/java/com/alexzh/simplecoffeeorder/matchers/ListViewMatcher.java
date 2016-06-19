@@ -7,7 +7,7 @@ import com.alexzh.simplecoffeeorder.model.Coffee;
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 
-public class ListViewMatchers {
+public class ListViewMatcher {
 
     public static Matcher<Object> withCoffee(final Coffee coffee) {
         return new BoundedMatcher<Object, Coffee>(Coffee.class) {

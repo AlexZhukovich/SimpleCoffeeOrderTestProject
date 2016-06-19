@@ -2,15 +2,11 @@ package com.alexzh.simplecoffeeorder.actions;
 
 import android.support.test.espresso.UiController;
 import android.support.test.espresso.ViewAction;
-import android.support.test.espresso.action.TypeTextAction;
 import android.support.test.espresso.contrib.RecyclerViewActions;
 import android.view.View;
 import android.widget.TextView;
 
-import com.alexzh.simplecoffeeorder.R;
-
 import org.hamcrest.Matcher;
-import org.w3c.dom.Text;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.matcher.ViewMatchers.hasDescendant;
