@@ -66,7 +66,7 @@ public class CoffeeDetailActivity extends AppCompatActivity implements CoffeeDet
 
     @Override
     public void displayCoffeeName(String coffeeName) {
-        mToolbar.setTitle(coffeeName);
+        getSupportActionBar().setTitle(coffeeName);
     }
 
     @Override
