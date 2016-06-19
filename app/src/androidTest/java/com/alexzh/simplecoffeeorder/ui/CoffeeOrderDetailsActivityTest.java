@@ -25,11 +25,12 @@ import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
-import static com.alexzh.simplecoffeeorder.matchers.ListViewMatchers.withCoffee;
+import static com.alexzh.simplecoffeeorder.matchers.ListViewMatcher.withCoffee;
 import static com.alexzh.simplecoffeeorder.utils.StringUtils.getString;
 
 @RunWith(AndroidJUnit4.class)
 public class CoffeeOrderDetailsActivityTest {
+    private final static int ESPRESSO_INDEX = 0;
 
     private List<Coffee> mCoffeeList;
 
@@ -53,10 +54,7 @@ public class CoffeeOrderDetailsActivityTest {
         Intent intent = CoffeeOrderDetailsActivity.createIntent(targetContext, coffeeOrderMap);
         mActivityRule.launchActivity(intent);
 
-        Coffee espresso = new Coffee("Espresso",
-                new String[]{"Ground coffee beans", "hot water"},
-                5.0f);
-
+        Coffee espresso = CoffeeService.getCoffeeData().get(ESPRESSO_INDEX);
         onData(withCoffee(espresso))
                 .inAdapterView(withId(R.id.detail_list))
                 .check(matches(isDisplayed()));
