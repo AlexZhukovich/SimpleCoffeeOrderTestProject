@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.alexzh.simplecoffeeorder.R;
 import com.alexzh.simplecoffeeorder.model.Coffee;
+import com.alexzh.simplecoffeeorder.utils.CoffeeUtils;
 
 public class CoffeeDetailAdapter extends RecyclerView.Adapter<CoffeeDetailAdapter.ViewHolder> {
     private final static int COFFEE_INGREDIENT_POSITION = 0;
@@ -39,13 +40,7 @@ public class CoffeeDetailAdapter extends RecyclerView.Adapter<CoffeeDetailAdapte
     public void onBindViewHolder(ViewHolder holder, int position) {
         switch (position) {
             case COFFEE_INGREDIENT_POSITION:
-                String ingredients = "";
-                for (int i = 0; i < mCoffee.getIngredients().length; i++) {
-                    ingredients += mCoffee.getIngredients()[i];
-                    if (i != mCoffee.getIngredients().length - 1) {
-                        ingredients += ",\n";
-                    }
-                }
+                String ingredients = CoffeeUtils.getIngredientsString(mCoffee);
 
                 holder.mItemTitle.setText(R.string.ingredients);
                 holder.mItemDescription.setText(ingredients);
