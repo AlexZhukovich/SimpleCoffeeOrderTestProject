@@ -1,6 +1,7 @@
 package com.alexzh.simplecoffeeorder.model;
 
 import java.io.Serializable;
+import java.util.Arrays;
 
 public class Coffee implements Serializable {
     private String mName;
@@ -35,5 +36,25 @@ public class Coffee implements Serializable {
 
     public void setPrice(float mPrice) {
         this.mPrice = mPrice;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Coffee coffee = (Coffee) o;
+
+        if (Float.compare(coffee.mPrice, mPrice) != 0) return false;
+        if (mName != null ? !mName.equals(coffee.mName) : coffee.mName != null) return false;
+        return Arrays.equals(mIngredients, coffee.mIngredients);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = mName != null ? mName.hashCode() : 0;
+        result = 31 * result + Arrays.hashCode(mIngredients);
+        result = 31 * result + (mPrice != +0.0f ? Float.floatToIntBits(mPrice) : 0);
+        return result;
     }
 }
