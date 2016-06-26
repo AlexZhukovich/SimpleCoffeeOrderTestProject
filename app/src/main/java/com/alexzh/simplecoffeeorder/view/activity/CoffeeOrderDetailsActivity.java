@@ -18,6 +18,7 @@ import com.alexzh.simplecoffeeorder.presentation.CoffeeOrderDetailsPresenterImpl
 import com.alexzh.simplecoffeeorder.view.CoffeeOrderDetailsView;
 
 import java.util.HashMap;
+import java.util.TreeMap;
 
 public class CoffeeOrderDetailsActivity extends AppCompatActivity implements CoffeeOrderDetailsView, View.OnClickListener {
     public final static String ORDER_LIST = "order_list";
@@ -26,7 +27,7 @@ public class CoffeeOrderDetailsActivity extends AppCompatActivity implements Cof
     private CoffeeOrderDetailListViewAdapter mAdapter;
     private CoffeeOrderDetailsPresenter mDetailPresenter;
 
-    public static Intent createIntent(Context context, HashMap<Coffee, Integer> orderList) {
+    public static Intent createIntent(Context context, TreeMap<Coffee, Integer> orderList) {
         Intent intent = new Intent(context, CoffeeOrderDetailsActivity.class);
         intent.putExtra(ORDER_LIST, orderList);
         return intent;
@@ -61,7 +62,7 @@ public class CoffeeOrderDetailsActivity extends AppCompatActivity implements Cof
 
 
     @Override
-    public void displayOrderedCoffeeList(HashMap<Coffee, Integer> coffeeMap) {
+    public void displayOrderedCoffeeList(TreeMap<Coffee, Integer> coffeeMap) {
         mAdapter.setOrderedCoffee(coffeeMap);
     }
 

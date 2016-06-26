@@ -20,6 +20,7 @@ import com.alexzh.simplecoffeeorder.presentation.CoffeeOrderListPresenterImpl;
 import com.alexzh.simplecoffeeorder.view.CoffeeOrderListView;
 
 import java.util.HashMap;
+import java.util.TreeMap;
 
 public class CoffeeOrderListActivity extends AppCompatActivity implements View.OnClickListener, CoffeeOrderListView {
     private AppCompatTextView mTotalPriceToolBar;
@@ -103,7 +104,7 @@ public class CoffeeOrderListActivity extends AppCompatActivity implements View.O
     }
 
     @Override
-    public void displayCoffeeList(HashMap<Coffee, Integer> coffeeOrderMap) {
+    public void displayCoffeeList(TreeMap<Coffee, Integer> coffeeOrderMap) {
         if (mAdapter != null) {
             mAdapter.setCoffeeList(coffeeOrderMap);
             mAdapter.notifyDataSetChanged();

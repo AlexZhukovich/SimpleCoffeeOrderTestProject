@@ -3,10 +3,11 @@ package com.alexzh.simplecoffeeorder.utils;
 import com.alexzh.simplecoffeeorder.model.Coffee;
 
 import java.util.HashMap;
+import java.util.TreeMap;
 
 public class CoffeeOrderUtils {
 
-    public static Coffee getCoffeeByPosition(HashMap<Coffee, Integer> orderedHashMap, int position) {
+    public static Coffee getCoffeeByPosition(TreeMap<Coffee, Integer> orderedHashMap, int position) {
         int interactionPosition = 0;
         for (Coffee key : orderedHashMap.keySet()) {
             if (interactionPosition == position) {
@@ -17,7 +18,7 @@ public class CoffeeOrderUtils {
         return null;
     }
 
-    public static int getCountByCoffee(HashMap<Coffee, Integer> orderedHashMap, Coffee coffee) {
+    public static int getCountByCoffee(TreeMap<Coffee, Integer> orderedHashMap, Coffee coffee) {
         for (Coffee key : orderedHashMap.keySet()) {
             if (key.equals(coffee)) {
                 return  orderedHashMap.get(key);

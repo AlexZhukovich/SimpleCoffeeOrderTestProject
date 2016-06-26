@@ -14,8 +14,9 @@ import com.alexzh.simplecoffeeorder.model.Coffee;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.TreeMap;
 
-public class CoffeeOrderListAdapter extends RecyclerView.Adapter<CoffeeOrderListAdapter.ViewHolder> {
+public class CoffeeOrderListAdapter extends RecyclerView.Adapter<CoffeeOrderListAdapter.CoffeeViewHolder> {
     public interface CoffeeOrderListener {
         void onCoffeeChanged(Coffee coffee, CoffeeCountPicker.CoffeeOrderOperation operation, int count);
     }
@@ -49,7 +50,7 @@ public class CoffeeOrderListAdapter extends RecyclerView.Adapter<CoffeeOrderList
         this.mClickListener = listener;
     }
 
-    public void setCoffeeList(HashMap<Coffee, Integer> coffeeOrderMap) {
+    public void setCoffeeList(TreeMap<Coffee, Integer> coffeeOrderMap) {
         mCoffeeList = new ArrayList<>();
         countArray = new int[coffeeOrderMap == null ? 0 : coffeeOrderMap.size()];
         int position = 0;
@@ -64,14 +65,14 @@ public class CoffeeOrderListAdapter extends RecyclerView.Adapter<CoffeeOrderList
     }
 
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public CoffeeViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         View itemView = inflater.inflate(R.layout.item_coffee, parent, false);
-        return new ViewHolder(itemView, mClickListener);
+        return new CoffeeViewHolder(itemView, mClickListener);
     }
 
     @Override
-    public void onBindViewHolder(final ViewHolder holder, final int position) {
+    public void onBindViewHolder(final CoffeeViewHolder holder, final int position) {
         holder.mCoffeeName.setText(mCoffeeList.get(position).getName());
         holder.mCoffeePrice.setText(mContext.getString(R.string.price,
                 mCoffeeList.get(position).getPrice()));
@@ -96,12 +97,12 @@ public class CoffeeOrderListAdapter extends RecyclerView.Adapter<CoffeeOrderList
         return mCoffeeList == null ? 0 : mCoffeeList.size();
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
-        private TextView mCoffeeName;
-        private TextView mCoffeePrice;
-        private CoffeeCountPicker mCoffeeCountPicker;
+    public static class CoffeeViewHolder extends RecyclerView.ViewHolder {
+        public TextView mCoffeeName;
+        public TextView mCoffeePrice;
+        public CoffeeCountPicker mCoffeeCountPicker;
 
-        public ViewHolder(View itemView, View.OnClickListener listener) {
+        public CoffeeViewHolder(View itemView, View.OnClickListener listener) {
             super(itemView);
 
             mCoffeeName = (TextView) itemView.findViewById(R.id.coffee_name);
