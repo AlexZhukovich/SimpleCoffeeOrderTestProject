@@ -18,7 +18,6 @@ import com.alexzh.simplecoffeeorder.view.activity.CoffeeDetailActivity;
 import com.alexzh.simplecoffeeorder.view.activity.CoffeeOrderDetailsActivity;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.TreeMap;
 
 public class CoffeeOrderListPresenterImpl implements CoffeeOrderListPresenter {

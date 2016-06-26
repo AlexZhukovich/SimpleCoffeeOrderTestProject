@@ -17,7 +17,6 @@ import com.alexzh.simplecoffeeorder.presentation.CoffeeOrderDetailsPresenter;
 import com.alexzh.simplecoffeeorder.presentation.CoffeeOrderDetailsPresenterImpl;
 import com.alexzh.simplecoffeeorder.view.CoffeeOrderDetailsView;
 
-import java.util.HashMap;
 import java.util.TreeMap;
 
 public class CoffeeOrderDetailsActivity extends AppCompatActivity implements CoffeeOrderDetailsView, View.OnClickListener {

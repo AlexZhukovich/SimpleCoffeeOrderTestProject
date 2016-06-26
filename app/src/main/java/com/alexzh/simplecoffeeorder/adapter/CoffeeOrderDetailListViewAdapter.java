@@ -8,11 +8,10 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import com.alexzh.simplecoffeeorder.model.Coffee;
 import com.alexzh.simplecoffeeorder.R;
+import com.alexzh.simplecoffeeorder.model.Coffee;
 import com.alexzh.simplecoffeeorder.utils.CoffeeOrderUtils;
 
-import java.util.HashMap;
 import java.util.TreeMap;
 
 public class CoffeeOrderDetailListViewAdapter extends BaseAdapter {

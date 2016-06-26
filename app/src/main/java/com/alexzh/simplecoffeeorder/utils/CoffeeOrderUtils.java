@@ -2,7 +2,6 @@ package com.alexzh.simplecoffeeorder.utils;
 
 import com.alexzh.simplecoffeeorder.model.Coffee;
 
-import java.util.HashMap;
 import java.util.TreeMap;
 
 public class CoffeeOrderUtils {
