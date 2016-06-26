@@ -8,22 +8,22 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import com.alexzh.simplecoffeeorder.model.Coffee;
 import com.alexzh.simplecoffeeorder.R;
+import com.alexzh.simplecoffeeorder.model.Coffee;
 import com.alexzh.simplecoffeeorder.utils.CoffeeOrderUtils;
 
-import java.util.HashMap;
+import java.util.TreeMap;
 
 public class CoffeeOrderDetailListViewAdapter extends BaseAdapter {
-    private HashMap<Coffee, Integer> mOrderedCoffee;
+    private TreeMap<Coffee, Integer> mOrderedCoffee;
     private Context mContext;
 
-    public CoffeeOrderDetailListViewAdapter(Context context, HashMap<Coffee, Integer> orderedCoffee) {
+    public CoffeeOrderDetailListViewAdapter(Context context, TreeMap<Coffee, Integer> orderedCoffee) {
         this.mOrderedCoffee = orderedCoffee;
         this.mContext = context;
     }
 
-    public void setOrderedCoffee(HashMap<Coffee, Integer> orderedCoffee) {
+    public void setOrderedCoffee(TreeMap<Coffee, Integer> orderedCoffee) {
         this.mOrderedCoffee = orderedCoffee;
         notifyDataSetChanged();
     }

@@ -42,9 +42,9 @@ public class CoffeeDetailActivityTest {
                 .check(matches(withToolbarTitle(is(espresso.getName()))));
 
         onView(withId(R.id.recyclerView))
-                .check(matches(atPosition(0, targetContext.getString(R.string.ingredients), ingredients.toString())));
+                .check(matches(atPosition(0, is(targetContext.getString(R.string.ingredients)), is(ingredients))));
 
         onView(withId(R.id.recyclerView))
-                .check(matches(atPosition(1, targetContext.getString(R.string.price_label), targetContext.getString(R.string.price, espresso.getPrice()))));
+                .check(matches(atPosition(1, is(targetContext.getString(R.string.price_label)), is(targetContext.getString(R.string.price, espresso.getPrice())))));
     }
 }

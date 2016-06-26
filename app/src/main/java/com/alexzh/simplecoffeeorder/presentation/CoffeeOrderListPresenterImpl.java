@@ -18,12 +18,12 @@ import com.alexzh.simplecoffeeorder.view.activity.CoffeeDetailActivity;
 import com.alexzh.simplecoffeeorder.view.activity.CoffeeOrderDetailsActivity;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.TreeMap;
 
 public class CoffeeOrderListPresenterImpl implements CoffeeOrderListPresenter {
     private static final int PAYMENT_REQUEST = 1;
     private final static String COFFEE_ORDERED_MAP = "coffee_ordered_map";
-    private HashMap<Coffee, Integer> mCoffeeOrderMap;
+    private TreeMap<Coffee, Integer> mCoffeeOrderMap;
 
     private CoffeeOrderListView mView;
     private LocalBroadcastManager mBroadcastManager;
@@ -36,7 +36,7 @@ public class CoffeeOrderListPresenterImpl implements CoffeeOrderListPresenter {
         mView = coffeeOrderListView;
         mBroadcastManager = LocalBroadcastManager.getInstance(mContext);
 
-        mCoffeeOrderMap = new HashMap<>();
+        mCoffeeOrderMap = new TreeMap<>();
 
         mReceiver = new BroadcastReceiver() {
             @Override
@@ -86,7 +86,7 @@ public class CoffeeOrderListPresenterImpl implements CoffeeOrderListPresenter {
 
     @Override
     public void restorePresenterData(Bundle savedInstanceState) {
-        mCoffeeOrderMap = (HashMap<Coffee, Integer>) savedInstanceState.getSerializable(COFFEE_ORDERED_MAP);
+        mCoffeeOrderMap = (TreeMap<Coffee, Integer>) savedInstanceState.getSerializable(COFFEE_ORDERED_MAP);
         mView.displayTotalPrice(calculatePrice());
     }
 
@@ -122,7 +122,7 @@ public class CoffeeOrderListPresenterImpl implements CoffeeOrderListPresenter {
 
     private float calculatePrice() {
         float total = 0.0f;
-        HashMap<Coffee, Integer> coffeeOrderedMap = mCoffeeOrderMap;
+        TreeMap<Coffee, Integer> coffeeOrderedMap = mCoffeeOrderMap;
         if (coffeeOrderedMap != null) {
             for (Coffee key : coffeeOrderedMap.keySet()) {
                 total += key.getPrice() * coffeeOrderedMap.get(key);

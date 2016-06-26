@@ -9,7 +9,9 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.alexzh.simplecoffeeorder.R;
 import com.alexzh.simplecoffeeorder.adapter.CoffeeOrderListAdapter;
@@ -19,7 +21,9 @@ import com.alexzh.simplecoffeeorder.presentation.CoffeeOrderListPresenter;
 import com.alexzh.simplecoffeeorder.presentation.CoffeeOrderListPresenterImpl;
 import com.alexzh.simplecoffeeorder.view.CoffeeOrderListView;
 
-import java.util.HashMap;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.TreeMap;
 
 public class CoffeeOrderListActivity extends AppCompatActivity implements View.OnClickListener, CoffeeOrderListView {
     private AppCompatTextView mTotalPriceToolBar;
@@ -103,7 +107,7 @@ public class CoffeeOrderListActivity extends AppCompatActivity implements View.O
     }
 
     @Override
-    public void displayCoffeeList(HashMap<Coffee, Integer> coffeeOrderMap) {
+    public void displayCoffeeList(TreeMap<Coffee, Integer> coffeeOrderMap) {
         if (mAdapter != null) {
             mAdapter.setCoffeeList(coffeeOrderMap);
             mAdapter.notifyDataSetChanged();

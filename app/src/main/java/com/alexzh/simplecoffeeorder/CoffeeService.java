@@ -31,33 +31,33 @@ public class CoffeeService extends IntentService {
     public static ArrayList<Coffee> getCoffeeData() {
         ArrayList<Coffee> list = new ArrayList<>();
         list.add(new Coffee(
-                "Espresso",
-                new String[]{"Ground coffee beans", "hot water"},
-                5.0f));
-        list.add(new Coffee(
                 "Americano",
                 new String[]{"Espresso", "hot water"},
                 4.5f));
-        list.add(new Coffee(
-                "Latte",
-                new String[]{"Espresso", "steamed milk", "microfoam"},
-                5.5f));
-        list.add(new Coffee(
-                "Mocha",
-                new String[]{"Espresso", "steamed milk", "chocolate"},
-                7.5f));
         list.add(new Coffee(
                 "Cappuccino",
                 new String[]{"Espresso", "steamed milk", "microfoam"},
                 9.5f));
         list.add(new Coffee(
+                "Espresso",
+                new String[]{"Ground coffee beans", "hot water"},
+                5.0f));
+        list.add(new Coffee(
                 "Espresso Macchiato",
                 new String[]{"Espresso", "microfoam"},
                 12.0f));
         list.add(new Coffee(
+                "Latte",
+                new String[]{"Espresso", "steamed milk", "microfoam"},
+                5.5f));
+        list.add(new Coffee(
                 "Latte Macchiato",
                 new String[]{"Steamed milk", "espresso", "microfoam"},
                 9.0f));
+        list.add(new Coffee(
+                "Mocha",
+                new String[]{"Espresso", "steamed milk", "chocolate"},
+                7.5f));
         list.add(new Coffee(
                 "White coffee",
                 new String[]{"Brewed coffee", "milk"},

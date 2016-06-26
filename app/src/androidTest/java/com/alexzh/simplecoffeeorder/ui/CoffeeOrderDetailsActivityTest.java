@@ -18,6 +18,7 @@ import org.junit.runner.RunWith;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.TreeMap;
 
 import static android.support.test.espresso.Espresso.onData;
 import static android.support.test.espresso.Espresso.onView;
@@ -46,7 +47,7 @@ public class CoffeeOrderDetailsActivityTest {
     @Test
     public void shouldOpenDetailActivity() {
         float totalPrice = 0.0f;
-        final HashMap<Coffee, Integer> coffeeOrderMap = new HashMap<>();
+        final TreeMap<Coffee, Integer> coffeeOrderMap = new TreeMap<>();
         coffeeOrderMap.put(mCoffeeList.get(0), 12);
         totalPrice += (12 * mCoffeeList.get(0).getPrice());
 
