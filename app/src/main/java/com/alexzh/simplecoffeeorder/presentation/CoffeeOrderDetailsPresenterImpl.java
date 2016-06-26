@@ -13,20 +13,21 @@ import com.alexzh.simplecoffeeorder.view.CoffeeOrderDetailsView;
 import com.alexzh.simplecoffeeorder.view.activity.CoffeeOrderDetailsActivity;
 
 import java.util.HashMap;
+import java.util.TreeMap;
 
 public class CoffeeOrderDetailsPresenterImpl implements CoffeeOrderDetailsPresenter {
     private final static int NOTIFICATION_ID = 100;
 
     private CoffeeOrderDetailsView mView;
 
-    private HashMap<Coffee, Integer> mCoffeeOrderMap;
+    private TreeMap<Coffee, Integer> mCoffeeOrderMap;
 
     public CoffeeOrderDetailsPresenterImpl(Intent intent, CoffeeOrderDetailsView view) {
         this.mView = view;
 
         if (intent != null && intent.getExtras() != null) {
-            mCoffeeOrderMap = new HashMap<>();
-            HashMap<Coffee, Integer> orderedCoffeeMap  = (HashMap<Coffee, Integer>) intent.getExtras().getSerializable(CoffeeOrderDetailsActivity.ORDER_LIST);
+            mCoffeeOrderMap = new TreeMap<>();
+            TreeMap<Coffee, Integer> orderedCoffeeMap  = (TreeMap<Coffee, Integer>) intent.getExtras().getSerializable(CoffeeOrderDetailsActivity.ORDER_LIST);
             if (orderedCoffeeMap != null && orderedCoffeeMap.size() > 0) {
                 for (Coffee coffee : orderedCoffeeMap.keySet()) {
                     if (orderedCoffeeMap.get(coffee) != 0) {
@@ -35,7 +36,7 @@ public class CoffeeOrderDetailsPresenterImpl implements CoffeeOrderDetailsPresen
                 }
             }
         } else {
-            mCoffeeOrderMap = new HashMap<>();
+            mCoffeeOrderMap = new TreeMap<>();
         }
     }
 
