@@ -12,7 +12,6 @@ import com.alexzh.simplecoffeeorder.model.Coffee;
 import com.alexzh.simplecoffeeorder.view.CoffeeOrderDetailsView;
 import com.alexzh.simplecoffeeorder.view.activity.CoffeeOrderDetailsActivity;
 
-import java.util.HashMap;
 import java.util.TreeMap;
 
 public class CoffeeOrderDetailsPresenterImpl implements CoffeeOrderDetailsPresenter {

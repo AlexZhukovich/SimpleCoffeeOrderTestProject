@@ -12,7 +12,6 @@ import com.alexzh.simplecoffeeorder.customview.CoffeeCountPicker;
 import com.alexzh.simplecoffeeorder.model.Coffee;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.TreeMap;
 
@@ -27,7 +26,7 @@ public class CoffeeOrderListAdapter extends RecyclerView.Adapter<CoffeeOrderList
     private Context mContext;
     private View.OnClickListener mClickListener;
 
-    public CoffeeOrderListAdapter(Context context, HashMap<Coffee, Integer> coffeeOrderMap) {
+    public CoffeeOrderListAdapter(Context context, TreeMap<Coffee, Integer> coffeeOrderMap) {
 
         this.mContext = context;
         mCoffeeList = new ArrayList<>();
