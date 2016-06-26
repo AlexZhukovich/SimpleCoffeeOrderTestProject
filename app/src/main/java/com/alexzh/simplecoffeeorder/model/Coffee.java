@@ -3,7 +3,7 @@ package com.alexzh.simplecoffeeorder.model;
 import java.io.Serializable;
 import java.util.Arrays;
 
-public class Coffee implements Serializable {
+public class Coffee implements Serializable, Comparable<Coffee> {
     private String mName;
     private String[] mIngredients;
     private float mPrice;
@@ -56,5 +56,10 @@ public class Coffee implements Serializable {
         result = 31 * result + Arrays.hashCode(mIngredients);
         result = 31 * result + (mPrice != +0.0f ? Float.floatToIntBits(mPrice) : 0);
         return result;
+    }
+
+    @Override
+    public int compareTo(Coffee another) {
+        return this.mName.compareTo(another.getName());
     }
 }
