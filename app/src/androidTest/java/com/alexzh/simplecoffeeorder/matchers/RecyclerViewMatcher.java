@@ -6,13 +6,17 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.alexzh.simplecoffeeorder.R;
+import com.alexzh.simplecoffeeorder.adapter.CoffeeOrderListAdapter;
 
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
+import org.w3c.dom.Text;
+
+import static android.support.v7.widget.RecyclerView.*;
 
 public class RecyclerViewMatcher {
 
-    public static Matcher<View> atPosition(final int position, final String title, final String description) {
+    public static Matcher<View> atPosition(final int position, final Matcher<String> title, final Matcher<String> description) {
         return new BoundedMatcher<View, RecyclerView>(RecyclerView.class) {
             @Override
             public void describeTo(Description description) {
@@ -21,11 +25,48 @@ public class RecyclerViewMatcher {
 
             @Override
             protected boolean matchesSafely(final RecyclerView view) {
-                RecyclerView.ViewHolder viewHolder = view.findViewHolderForAdapterPosition(position);
+                ViewHolder viewHolder = view.findViewHolderForAdapterPosition(position);
                 if (viewHolder != null) {
                     TextView titleTextView = (TextView) viewHolder.itemView.findViewById(R.id.category_title);
                     TextView descTextView = (TextView) viewHolder.itemView.findViewById(R.id.category_description);
-                    return title.equals(titleTextView.getText().toString()) && description.equals(descTextView.getText().toString());
+                    return title.matches(titleTextView.getText().toString()) && description.matches(descTextView.getText().toString());
+                }
+                return false;
+            }
+        };
+    }
+
+    public static Matcher<RecyclerView.ViewHolder> withCoffeeNameAndCount(final Matcher<String> coffeeName, final int count) {
+        return new BoundedMatcher<RecyclerView.ViewHolder, CoffeeOrderListAdapter.CoffeeViewHolder>(CoffeeOrderListAdapter.CoffeeViewHolder.class) {
+            @Override
+            public void describeTo(Description description) {
+                description.appendText("with coffeeName = "+coffeeName.toString());
+            }
+
+            @Override
+            protected boolean matchesSafely(CoffeeOrderListAdapter.CoffeeViewHolder item) {
+                if (item != null && item.mCoffeeName != null) {
+                    return coffeeName.matches(item.mCoffeeName.getText().toString())
+                            && count == item.mCoffeeCountPicker.getCoffeeCount();
+                }
+                return false;
+            }
+        };
+    }
+
+    public static Matcher<View> withCoffeeCount(final Matcher<String> coffeeCount) {
+        return new BoundedMatcher<View, RecyclerView>(RecyclerView.class) {
+            @Override
+            public void describeTo(Description description) {
+                description.appendText("with coffeeCount = " + coffeeCount.toString());
+            }
+
+            @Override
+            protected boolean matchesSafely(RecyclerView view) {
+
+                TextView textView = (TextView) view.findViewById(R.id.coffee_count);
+                if (textView != null) {
+                    return coffeeCount.matches(textView.getText().toString());
                 }
                 return false;
             }
