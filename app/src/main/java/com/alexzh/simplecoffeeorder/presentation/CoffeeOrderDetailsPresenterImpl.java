@@ -12,6 +12,7 @@ import com.alexzh.simplecoffeeorder.model.Coffee;
 import com.alexzh.simplecoffeeorder.view.CoffeeOrderDetailsView;
 import com.alexzh.simplecoffeeorder.view.activity.CoffeeOrderDetailsActivity;
 
+import java.util.HashMap;
 import java.util.TreeMap;
 
 public class CoffeeOrderDetailsPresenterImpl implements CoffeeOrderDetailsPresenter {
@@ -26,7 +27,7 @@ public class CoffeeOrderDetailsPresenterImpl implements CoffeeOrderDetailsPresen
 
         if (intent != null && intent.getExtras() != null) {
             mCoffeeOrderMap = new TreeMap<>();
-            TreeMap<Coffee, Integer> orderedCoffeeMap  = (TreeMap<Coffee, Integer>) intent.getExtras().getSerializable(CoffeeOrderDetailsActivity.ORDER_LIST);
+            TreeMap<Coffee, Integer> orderedCoffeeMap  = new TreeMap<>((HashMap<Coffee, Integer>) intent.getExtras().getSerializable(CoffeeOrderDetailsActivity.ORDER_LIST));
             if (orderedCoffeeMap != null && orderedCoffeeMap.size() > 0) {
                 for (Coffee coffee : orderedCoffeeMap.keySet()) {
                     if (orderedCoffeeMap.get(coffee) != 0) {
