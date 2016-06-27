@@ -12,6 +12,7 @@ import com.alexzh.simplecoffeeorder.model.Coffee;
 import com.alexzh.simplecoffeeorder.view.CoffeeOrderDetailsView;
 import com.alexzh.simplecoffeeorder.view.activity.CoffeeOrderDetailsActivity;
 
+import java.util.HashMap;
 import java.util.TreeMap;
 
 public class CoffeeOrderDetailsPresenterImpl implements CoffeeOrderDetailsPresenter {
@@ -26,13 +27,20 @@ public class CoffeeOrderDetailsPresenterImpl implements CoffeeOrderDetailsPresen
 
         if (intent != null && intent.getExtras() != null) {
             mCoffeeOrderMap = new TreeMap<>();
-            TreeMap<Coffee, Integer> orderedCoffeeMap  = (TreeMap<Coffee, Integer>) intent.getExtras().getSerializable(CoffeeOrderDetailsActivity.ORDER_LIST);
+            TreeMap<Coffee, Integer> orderedCoffeeMap  = new TreeMap<>((HashMap<Coffee, Integer>) intent.getExtras().getSerializable(CoffeeOrderDetailsActivity.ORDER_LIST));
             if (orderedCoffeeMap != null && orderedCoffeeMap.size() > 0) {
                 for (Coffee coffee : orderedCoffeeMap.keySet()) {
                     if (orderedCoffeeMap.get(coffee) != 0) {
                         mCoffeeOrderMap.put(coffee, orderedCoffeeMap.get(coffee));
                     }
                 }
+            }
+
+            if (intent.getStringExtra(CoffeeOrderDetailsActivity.DELIVERY_INFO) != null) {
+                mView.displayDeliveryInfo(intent.getStringExtra(CoffeeOrderDetailsActivity.DELIVERY_INFO));
+                mView.disableDeliveryInfo();
+            } else {
+                mView.enableDeliveryInfo();
             }
         } else {
             mCoffeeOrderMap = new TreeMap<>();
@@ -68,7 +76,7 @@ public class CoffeeOrderDetailsPresenterImpl implements CoffeeOrderDetailsPresen
     }
 
     private void sendNotification(Context context) {
-        Intent intent = CoffeeOrderDetailsActivity.createIntent(context, mCoffeeOrderMap);
+        Intent intent = CoffeeOrderDetailsActivity.createIntent(context, mCoffeeOrderMap, mView.getDeliveryInfo());
         PendingIntent pIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_CANCEL_CURRENT);
         NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context);
         mBuilder.setSmallIcon(R.drawable.ic_report_notif);
