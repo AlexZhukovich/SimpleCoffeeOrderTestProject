@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -21,14 +22,17 @@ import java.util.TreeMap;
 
 public class CoffeeOrderDetailsActivity extends AppCompatActivity implements CoffeeOrderDetailsView, View.OnClickListener {
     public final static String ORDER_LIST = "order_list";
+    public final static String DELIVERY_INFO = "deliver_to";
 
     private TextView mTotalPrice;
+    private EditText mDeliveryInfo;
     private CoffeeOrderDetailListViewAdapter mAdapter;
     private CoffeeOrderDetailsPresenter mDetailPresenter;
 
-    public static Intent createIntent(Context context, TreeMap<Coffee, Integer> orderList) {
+    public static Intent createIntent(Context context, TreeMap<Coffee, Integer> orderList, String deliverTo) {
         Intent intent = new Intent(context, CoffeeOrderDetailsActivity.class);
         intent.putExtra(ORDER_LIST, orderList);
+        intent.putExtra(DELIVERY_INFO, deliverTo);
         return intent;
     }
 
@@ -37,6 +41,7 @@ public class CoffeeOrderDetailsActivity extends AppCompatActivity implements Cof
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_coffee_order_details);
 
+        mDeliveryInfo = (EditText) findViewById(R.id.delivery_info);
         mTotalPrice = (TextView) findViewById(R.id.total_price_toolbar);
         mDetailPresenter = new CoffeeOrderDetailsPresenterImpl(getIntent(), this);
 
@@ -68,6 +73,26 @@ public class CoffeeOrderDetailsActivity extends AppCompatActivity implements Cof
     @Override
     public void displayTotalPrice(float totalPrice) {
         mTotalPrice.setText(getString(R.string.price, totalPrice));
+    }
+
+    @Override
+    public String getDeliveryInfo() {
+        return mDeliveryInfo.getText().toString();
+    }
+
+    @Override
+    public void displayDeliveryInfo(String deliveryInfo) {
+        mDeliveryInfo.setText(getString(R.string.deliver_to_username, deliveryInfo));
+    }
+
+    @Override
+    public void disableDeliveryInfo() {
+        mDeliveryInfo.setEnabled(false);
+    }
+
+    @Override
+    public void enableDeliveryInfo() {
+        mDeliveryInfo.setEnabled(true);
     }
 
     @Override

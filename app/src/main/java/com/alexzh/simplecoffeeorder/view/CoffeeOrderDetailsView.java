@@ -10,4 +10,12 @@ public interface CoffeeOrderDetailsView {
 
     void displayTotalPrice(float totalPrice);
 
+    String getDeliveryInfo();
+
+    void displayDeliveryInfo(String deliveryInfo);
+
+    void disableDeliveryInfo();
+
+    void enableDeliveryInfo();
+
 }

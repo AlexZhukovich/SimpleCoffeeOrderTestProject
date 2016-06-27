@@ -35,6 +35,13 @@ public class CoffeeOrderDetailsPresenterImpl implements CoffeeOrderDetailsPresen
                     }
                 }
             }
+
+            if (intent.getStringExtra(CoffeeOrderDetailsActivity.DELIVERY_INFO) != null) {
+                mView.displayDeliveryInfo(intent.getStringExtra(CoffeeOrderDetailsActivity.DELIVERY_INFO));
+                mView.disableDeliveryInfo();
+            } else {
+                mView.enableDeliveryInfo();
+            }
         } else {
             mCoffeeOrderMap = new TreeMap<>();
         }
@@ -69,7 +76,7 @@ public class CoffeeOrderDetailsPresenterImpl implements CoffeeOrderDetailsPresen
     }
 
     private void sendNotification(Context context) {
-        Intent intent = CoffeeOrderDetailsActivity.createIntent(context, mCoffeeOrderMap);
+        Intent intent = CoffeeOrderDetailsActivity.createIntent(context, mCoffeeOrderMap, mView.getDeliveryInfo());
         PendingIntent pIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_CANCEL_CURRENT);
         NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context);
         mBuilder.setSmallIcon(R.drawable.ic_report_notif);

@@ -11,4 +11,6 @@
 
     <string name="ingredients">Ingredients</string>
     <string name="price_label">Price</string>
+    <string name="deliver_message_hint">Enter your name</string>
+    <string name="deliver_to_username">Deliver to %s</string>
 </resources>

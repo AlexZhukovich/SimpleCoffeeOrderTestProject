@@ -20,13 +20,12 @@
             app:expandedTitleMarginStart="48dp">
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-
                 <android.support.v7.widget.AppCompatTextView
-                    android:layout_marginTop="48dp"
+                    android:layout_marginTop="24dp"
                     android:layout_marginLeft="24dp"
                     android:text="Total price"
                     android:textSize="18sp"
@@ -35,9 +34,17 @@
                 <android.support.v7.widget.AppCompatTextView
                     android:id="@+id/total_price_toolbar"
                     android:layout_marginLeft="24dp"
-                    android:textSize="42sp"
+                    android:textSize="36sp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
+                <android.support.v7.widget.AppCompatEditText
+                    android:id="@+id/delivery_info"
+                    android:hint="@string/deliver_message_hint"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="24dp"
+                    android:layout_marginRight="24dp"
+                    android:paddingBottom="12dp"/>
             </LinearLayout>
 
             <android.support.v7.widget.Toolbar

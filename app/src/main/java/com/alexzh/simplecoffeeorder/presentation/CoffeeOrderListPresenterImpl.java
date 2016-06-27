@@ -108,7 +108,7 @@ public class CoffeeOrderListPresenterImpl implements CoffeeOrderListPresenter {
 
     @Override
     public void showDetail() {
-        Intent intent = CoffeeOrderDetailsActivity.createIntent(mContext, mCoffeeOrderMap);
+        Intent intent = CoffeeOrderDetailsActivity.createIntent(mContext, mCoffeeOrderMap, null);
         if (calculatePrice() > 0) {
             ((Activity) mContext).startActivityForResult(intent, PAYMENT_REQUEST);
         } else {
