@@ -103,18 +103,10 @@ public class CoffeeOrderDetailsActivityTest {
         Intent intent = CoffeeOrderDetailsActivity.createIntent(targetContext, coffeeOrderMap, null);
         mActivityRule.launchActivity(intent);
 
-<<<<<<< HEAD
-        Coffee espresso = CoffeeService.getCoffeeData().get(ESPRESSO_INDEX);
-        onData(withCoffee(espresso))
-                .inAdapterView(withId(R.id.detail_list))
-                .check(matches(isDisplayed()));
-        onView(withId(R.id.total_price_toolbar)).check(matches(withText(getString(mActivityRule, R.string.price, totalPrice))));
-=======
         onView(withId(R.id.delivery_info))
                 .perform(typeText("User"), closeSoftKeyboard());
 
         onView(withId(R.id.delivery_info))
                 .check(matches(withText("User")));
->>>>>>> 8_coffee_detail
     }
 }
