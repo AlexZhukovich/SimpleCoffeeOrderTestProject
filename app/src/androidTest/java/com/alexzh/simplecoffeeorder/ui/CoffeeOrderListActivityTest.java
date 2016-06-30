@@ -11,8 +11,6 @@ import com.alexzh.simplecoffeeorder.actions.RecyclerChildViewActions;
 import com.alexzh.simplecoffeeorder.model.Coffee;
 import com.alexzh.simplecoffeeorder.view.activity.CoffeeOrderListActivity;
 
-import junit.framework.Assert;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
@@ -28,9 +26,11 @@ import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.hasDescendant;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
+import static com.alexzh.simplecoffeeorder.actions.RecyclerChildViewActions.*;
 import static com.alexzh.simplecoffeeorder.actions.RecyclerChildViewActions.checkTextViewByChildViewWithId;
-import static com.alexzh.simplecoffeeorder.matchers.RecyclerViewMatcher.withCoffeeNameAndCount;
+import static com.alexzh.simplecoffeeorder.matchers.RecyclerViewMatcher.atPosition;
 import static com.alexzh.simplecoffeeorder.utils.StringUtils.getString;
+import static junit.framework.Assert.assertEquals;
 import static org.hamcrest.CoreMatchers.is;
 
 @RunWith(AndroidJUnit4.class)
@@ -67,24 +67,22 @@ public class CoffeeOrderListActivityTest {
     public void shouldOrderEspressoAndLatte() {
         int espressoCount = 0;
         int latteCount = 0;
-
         float totalCoffeePrice = 0.0f;
-        final String espresso = mCoffeeList.get(0).getName();
-        Assert.assertEquals("Espresso", espresso);
-        final float espressoPrice = mCoffeeList.get(0).getPrice();
+        final int espressoPosition = 2;
+        final int lattePosition = 4;
 
-        final String latte = mCoffeeList.get(2).getName();
-        Assert.assertEquals("Latte", latte);
-        final float lattePrice = mCoffeeList.get(2).getPrice();
+        final Coffee espresso = mCoffeeList.get(espressoPosition);
+        final Coffee latte = mCoffeeList.get(lattePosition);
+        assertEquals("Espresso", espresso.getName());
+        assertEquals("Latte", latte.getName());
 
-        totalCoffeePrice += espressoPrice;
-        changeToCoffeeOrderCountAndVerify(espresso, ++espressoCount, totalCoffeePrice, R.id.coffee_increment);
+        totalCoffeePrice += espresso.getPrice();
+        orderCoffee(espresso.getName(), R.id.coffee_increment);
+        verifyOrderedCoffee(espressoPosition, espresso.getName(), ++espressoCount, totalCoffeePrice);
 
-        totalCoffeePrice += espressoPrice;
-        changeToCoffeeOrderCountAndVerify(espresso, ++espressoCount, totalCoffeePrice, R.id.coffee_increment);
-
-        totalCoffeePrice += lattePrice;
-        changeToCoffeeOrderCountAndVerify(latte, ++latteCount, totalCoffeePrice, R.id.coffee_increment);
+        totalCoffeePrice += latte.getPrice();
+        orderCoffee(latte.getName(), R.id.coffee_increment);
+        verifyOrderedCoffee(lattePosition, latte.getName(), ++latteCount, totalCoffeePrice);
     }
 
     @After
@@ -92,15 +90,19 @@ public class CoffeeOrderListActivityTest {
         unregisterIdlingResources(mServiceIdlingResource);
     }
 
-    private void changeToCoffeeOrderCountAndVerify(String coffeeName, int coffeeCount, float totalCoffeePrice, int clickedViewId) {
+    private void orderCoffee(String coffeeName, int clickedViewId) {
         onView(withId(R.id.recyclerView))
                 .perform(RecyclerViewActions.actionOnItem(
                         hasDescendant(withText(coffeeName)),
-                        RecyclerChildViewActions.clickByChildViewWithId(clickedViewId)));
+                        clickByChildViewWithId(clickedViewId)));
+    }
 
+    private void verifyOrderedCoffee(int position, String coffeeName, int coffeeCount, float totalPrice) {
         onView(withId(R.id.recyclerView))
-                .perform(RecyclerViewActions.scrollToHolder(withCoffeeNameAndCount(is(coffeeName), coffeeCount)));
+                .check(matches(atPosition(position, is(coffeeName), coffeeCount)));
 
-        onView(withId(R.id.total_price_toolbar)).check(matches(withText(getString(mActivityRule, R.string.price, totalCoffeePrice))));
+        onView(withId(R.id.total_price_toolbar))
+                .check(matches(withText(getString(mActivityRule, R.string.price, totalPrice))));
+
     }
 }

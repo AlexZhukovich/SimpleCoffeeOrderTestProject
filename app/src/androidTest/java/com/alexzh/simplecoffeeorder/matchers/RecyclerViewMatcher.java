@@ -36,6 +36,32 @@ public class RecyclerViewMatcher {
         };
     }
 
+    public static Matcher<View> atPosition(final int position, final Matcher<String> coffeeName, final int coffeeCount) {
+        return new BoundedMatcher<View, RecyclerView>(RecyclerView.class) {
+            @Override
+            public void describeTo(Description description) {
+                description.appendText("has item at position: ");
+                description.appendText(String.valueOf(position));
+                description.appendText(" with coffee: ");
+                description.appendText(coffeeName.toString());
+                description.appendText(" and count: ");
+                description.appendText(String.valueOf(coffeeCount));
+            }
+
+            @Override
+            protected boolean matchesSafely(final RecyclerView view) {
+                ViewHolder viewHolder = view.findViewHolderForAdapterPosition(position);
+                if (viewHolder != null) {
+                    TextView coffeeTextView = (TextView) viewHolder.itemView.findViewById(R.id.coffee_name);
+                    TextView coffeeCountTextView = (TextView) viewHolder.itemView.findViewById(R.id.coffee_count);
+                    return coffeeName.matches(coffeeTextView.getText().toString())
+                            && String.valueOf(coffeeCount).equals(coffeeCountTextView.getText().toString());
+                }
+                return false;
+            }
+        };
+    }
+
     public static Matcher<RecyclerView.ViewHolder> withCoffeeNameAndCount(final Matcher<String> coffeeName, final int count) {
         return new BoundedMatcher<RecyclerView.ViewHolder, CoffeeOrderListAdapter.CoffeeViewHolder>(CoffeeOrderListAdapter.CoffeeViewHolder.class) {
             @Override

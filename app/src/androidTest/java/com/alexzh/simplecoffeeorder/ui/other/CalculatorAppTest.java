@@ -27,10 +27,10 @@ public class CalculatorAppTest {
         mDevice = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
         mDevice.pressHome();
 
-        UiObject allApps = mDevice.findObject(new UiSelector().description("Apps"));
+        UiObject2 allApps = mDevice.findObject(By.desc("Apps"));
         allApps.click();
 
-        UiObject calculatorApp = mDevice.findObject(new UiSelector().description("Calculator"));
+        UiObject2 calculatorApp = mDevice.findObject(By.desc("Calculator"));
         calculatorApp.click();
     }
 
