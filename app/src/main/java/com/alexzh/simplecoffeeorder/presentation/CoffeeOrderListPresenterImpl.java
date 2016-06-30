@@ -27,38 +27,16 @@ public class CoffeeOrderListPresenterImpl implements CoffeeOrderListPresenter {
     private TreeMap<Coffee, Integer> mCoffeeOrderMap;
 
     private CoffeeOrderListView mView;
-    private LocalBroadcastManager mBroadcastManager;
-    private BroadcastReceiver mReceiver;
-    private IntentFilter mIntentFilter;
     private Context mContext;
 
     public CoffeeOrderListPresenterImpl(Context context, CoffeeOrderListView coffeeOrderListView) {
         mContext = context;
         mView = coffeeOrderListView;
-        mBroadcastManager = LocalBroadcastManager.getInstance(mContext);
-
         mCoffeeOrderMap = new TreeMap<>();
-
-        mReceiver = new BroadcastReceiver() {
-            @Override
-            public void onReceive(Context context, Intent intent) {
-                ArrayList<Coffee> coffeeList = (ArrayList<Coffee>) intent.getSerializableExtra(CoffeeService.INTENT_DATA);
-                for (Coffee coffee : coffeeList) {
-                  mCoffeeOrderMap.put(coffee, 0);
-                }
-                if (coffeeList != null) {
-                    mView.hideLoading();
-                    mView.displayCoffeeList(mCoffeeOrderMap);
-                    mView.displayTotalPrice(calculatePrice());
-                }
-            }
-        };
-        mIntentFilter = new IntentFilter(CoffeeService.INTENT_GET_DATA);
     }
 
     @Override
     public void onResume() {
-        mBroadcastManager.registerReceiver(mReceiver, mIntentFilter);
         if (mCoffeeOrderMap == null || mCoffeeOrderMap.size() == 0) {
             mContext.startService(new Intent(mContext, CoffeeService.class));
             mView.showLoading();
@@ -87,7 +65,7 @@ public class CoffeeOrderListPresenterImpl implements CoffeeOrderListPresenter {
 
     @Override
     public void restorePresenterData(Bundle savedInstanceState) {
-        mCoffeeOrderMap = new TreeMap<>((HashMap<Coffee, Integer>) savedInstanceState.getSerializable(COFFEE_ORDERED_MAP));
+        mCoffeeOrderMap = (TreeMap<Coffee, Integer>) savedInstanceState.getSerializable(COFFEE_ORDERED_MAP);
         mView.displayTotalPrice(calculatePrice());
     }
 
@@ -117,8 +95,15 @@ public class CoffeeOrderListPresenterImpl implements CoffeeOrderListPresenter {
     }
 
     @Override
-    public void onPause() {
-        mBroadcastManager.unregisterReceiver(mReceiver);
+    public void updateData(ArrayList<Coffee> coffeeList) {
+        for (Coffee coffee : coffeeList) {
+            mCoffeeOrderMap.put(coffee, 0);
+        }
+        if (coffeeList != null) {
+            mView.hideLoading();
+            mView.displayCoffeeList(mCoffeeOrderMap);
+            mView.displayTotalPrice(calculatePrice());
+        }
     }
 
     private float calculatePrice() {
