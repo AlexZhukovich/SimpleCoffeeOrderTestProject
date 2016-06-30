@@ -18,4 +18,7 @@ public interface CoffeeOrderDetailsView {
 
     void enableDeliveryInfo();
 
+    void sendNotification(TreeMap<Coffee, Integer> order);
+
+    void moveToOrderList();
 }

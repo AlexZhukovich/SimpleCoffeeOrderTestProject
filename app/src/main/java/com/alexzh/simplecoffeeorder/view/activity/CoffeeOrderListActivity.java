@@ -1,8 +1,12 @@
 package com.alexzh.simplecoffeeorder.view.activity;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -13,6 +17,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.alexzh.simplecoffeeorder.CoffeeService;
 import com.alexzh.simplecoffeeorder.R;
 import com.alexzh.simplecoffeeorder.adapter.CoffeeOrderListAdapter;
 import com.alexzh.simplecoffeeorder.customview.CoffeeCountPicker;
@@ -33,6 +38,10 @@ public class CoffeeOrderListActivity extends AppCompatActivity implements View.O
     private ProgressBar mProgressBar;
 
     private CoffeeOrderListPresenter mCoffeeOrderListPresenter;
+
+    private LocalBroadcastManager mBroadcastManager;
+    private BroadcastReceiver mReceiver;
+    private IntentFilter mIntentFilter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +74,16 @@ public class CoffeeOrderListActivity extends AppCompatActivity implements View.O
         mRecyclerView.setAdapter(mAdapter);
         findViewById(R.id.pay).setOnClickListener(this);
         mCoffeeOrderListPresenter = new CoffeeOrderListPresenterImpl(this, this);
+
+        mBroadcastManager = LocalBroadcastManager.getInstance(getApplicationContext());
+        mReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                ArrayList<Coffee> coffeeList = (ArrayList<Coffee>) intent.getSerializableExtra(CoffeeService.INTENT_DATA);
+                mCoffeeOrderListPresenter.updateData(coffeeList);
+            }
+        };
+        mIntentFilter = new IntentFilter(CoffeeService.INTENT_GET_DATA);
     }
 
     @Override
@@ -97,12 +116,13 @@ public class CoffeeOrderListActivity extends AppCompatActivity implements View.O
     @Override
     protected void onResume() {
         super.onResume();
+        mBroadcastManager.registerReceiver(mReceiver, mIntentFilter);
         mCoffeeOrderListPresenter.onResume();
     }
 
     @Override
     protected void onPause() {
-        mCoffeeOrderListPresenter.onPause();
+        mBroadcastManager.unregisterReceiver(mReceiver);
         super.onPause();
     }
 

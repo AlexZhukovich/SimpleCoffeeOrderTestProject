@@ -7,6 +7,8 @@ import com.alexzh.simplecoffeeorder.customview.CoffeeCountPicker;
 import com.alexzh.simplecoffeeorder.model.Coffee;
 import com.alexzh.simplecoffeeorder.view.CoffeeOrderListView;
 
+import java.util.ArrayList;
+
 public interface CoffeeOrderListPresenter {
 
     void onResume();
@@ -25,6 +27,6 @@ public interface CoffeeOrderListPresenter {
 
     void showDetail();
 
-    void onPause();
+    void updateData(ArrayList<Coffee> coffeeList);
 
 }
