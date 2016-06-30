@@ -1,11 +1,15 @@
 package com.alexzh.simplecoffeeorder.view.activity;
 
+import android.app.Activity;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.app.NotificationCompat;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -21,6 +25,7 @@ import com.alexzh.simplecoffeeorder.view.CoffeeOrderDetailsView;
 import java.util.TreeMap;
 
 public class CoffeeOrderDetailsActivity extends AppCompatActivity implements CoffeeOrderDetailsView, View.OnClickListener {
+    private final static int NOTIFICATION_ID = 100;
     public final static String ORDER_LIST = "order_list";
     public final static String DELIVERY_INFO = "deliver_to";
 
@@ -99,8 +104,31 @@ public class CoffeeOrderDetailsActivity extends AppCompatActivity implements Cof
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.pay:
-                mDetailPresenter.payForCoffee(CoffeeOrderDetailsActivity.this);
+                mDetailPresenter.payForCoffee();
                 break;
         }
+    }
+
+    @Override
+    public void sendNotification(TreeMap<Coffee, Integer> order) {
+        Intent intent = CoffeeOrderDetailsActivity.createIntent(getApplicationContext(), order, getDeliveryInfo());
+        PendingIntent pIntent = PendingIntent.getActivity(getApplicationContext(), 0, intent, PendingIntent.FLAG_CANCEL_CURRENT);
+        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(getApplicationContext());
+        mBuilder.setSmallIcon(R.drawable.ic_report_notif);
+        mBuilder.setContentTitle("Coffee order app");
+        mBuilder.setContentText("Thank you for your payment.");
+        mBuilder.setContentIntent(pIntent);
+        mBuilder.setAutoCancel(true);
+        NotificationManager mNotificationManager = (NotificationManager)
+                getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
+        mNotificationManager.notify(NOTIFICATION_ID, mBuilder.build());
+
+        mDetailPresenter.moveToOrderList();
+    }
+
+    @Override
+    public void moveToOrderList() {
+        setResult(Activity.RESULT_OK);
+        finish();
     }
 }

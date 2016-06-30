@@ -1,13 +1,7 @@
 package com.alexzh.simplecoffeeorder.presentation;
 
-import android.app.Activity;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
-import android.content.Context;
 import android.content.Intent;
-import android.support.v4.app.NotificationCompat;
 
-import com.alexzh.simplecoffeeorder.R;
 import com.alexzh.simplecoffeeorder.model.Coffee;
 import com.alexzh.simplecoffeeorder.view.CoffeeOrderDetailsView;
 import com.alexzh.simplecoffeeorder.view.activity.CoffeeOrderDetailsActivity;
@@ -16,7 +10,6 @@ import java.util.HashMap;
 import java.util.TreeMap;
 
 public class CoffeeOrderDetailsPresenterImpl implements CoffeeOrderDetailsPresenter {
-    private final static int NOTIFICATION_ID = 100;
 
     private CoffeeOrderDetailsView mView;
 
@@ -68,24 +61,12 @@ public class CoffeeOrderDetailsPresenterImpl implements CoffeeOrderDetailsPresen
     }
 
     @Override
-    public void payForCoffee(Context context) {
-        sendNotification(context);
-
-        ((Activity)context).setResult(Activity.RESULT_OK);
-        ((Activity) context).finish();
+    public void payForCoffee() {
+        mView.sendNotification(mCoffeeOrderMap);
     }
 
-    private void sendNotification(Context context) {
-        Intent intent = CoffeeOrderDetailsActivity.createIntent(context, mCoffeeOrderMap, mView.getDeliveryInfo());
-        PendingIntent pIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_CANCEL_CURRENT);
-        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context);
-        mBuilder.setSmallIcon(R.drawable.ic_report_notif);
-        mBuilder.setContentTitle("Coffee order app");
-        mBuilder.setContentText("Thank you for your payment.");
-        mBuilder.setContentIntent(pIntent);
-        mBuilder.setAutoCancel(true);
-        NotificationManager mNotificationManager = (NotificationManager)
-                context.getSystemService(Context.NOTIFICATION_SERVICE);
-        mNotificationManager.notify(NOTIFICATION_ID, mBuilder.build());
+    @Override
+    public void moveToOrderList() {
+        mView.moveToOrderList();
     }
 }
