@@ -1,6 +1,7 @@
-package com.alexzh.simplecoffeeorder.ui.other;
+package com.alexzh.simplecoffeeorder.externalapp;
 
 import android.support.test.InstrumentationRegistry;
+import android.support.test.filters.LargeTest;
 import android.support.test.runner.AndroidJUnit4;
 import android.support.test.uiautomator.By;
 import android.support.test.uiautomator.UiDevice;
@@ -12,6 +13,7 @@ import android.support.test.uiautomator.Until;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -27,9 +29,11 @@ public class CalculatorAppTest {
         mDevice = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
         mDevice.pressHome();
 
+        mDevice.wait(Until.hasObject(By.text("Calculator")), 3000);
         UiObject2 allApps = mDevice.findObject(By.desc("Apps"));
         allApps.click();
 
+        mDevice.wait(Until.hasObject(By.text("Calculator")), 3000);
         UiObject2 calculatorApp = mDevice.findObject(By.desc("Calculator"));
         calculatorApp.click();
     }
