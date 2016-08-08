@@ -10,12 +10,9 @@ import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.ProgressBar;
-import android.widget.Toast;
 
 import com.alexzh.simplecoffeeorder.CoffeeService;
 import com.alexzh.simplecoffeeorder.R;
@@ -27,7 +24,6 @@ import com.alexzh.simplecoffeeorder.presentation.CoffeeOrderListPresenterImpl;
 import com.alexzh.simplecoffeeorder.view.CoffeeOrderListView;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.TreeMap;
 
 public class CoffeeOrderListActivity extends AppCompatActivity implements View.OnClickListener, CoffeeOrderListView {
@@ -54,7 +50,6 @@ public class CoffeeOrderListActivity extends AppCompatActivity implements View.O
         mProgressBar = (ProgressBar) findViewById(R.id.progressBar);
         mRecyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mAdapter = new CoffeeOrderListAdapter(getApplicationContext(), null);
         mAdapter.setCoffeeOrderListener(new CoffeeOrderListAdapter.CoffeeOrderListener() {
             @Override

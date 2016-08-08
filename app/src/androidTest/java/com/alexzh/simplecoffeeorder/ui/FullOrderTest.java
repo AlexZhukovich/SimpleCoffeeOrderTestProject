@@ -18,28 +18,20 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import java.util.Map;
-
 import static android.support.test.espresso.Espresso.onData;
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.Espresso.registerIdlingResources;
 import static android.support.test.espresso.Espresso.unregisterIdlingResources;
 import static android.support.test.espresso.action.ViewActions.click;
+import static android.support.test.espresso.action.ViewActions.closeSoftKeyboard;
+import static android.support.test.espresso.action.ViewActions.typeText;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
-import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static com.alexzh.simplecoffeeorder.actions.RecyclerChildViewActions.checkTextViewCountForCoffee;
 import static com.alexzh.simplecoffeeorder.actions.RecyclerChildViewActions.clickToViewChildItem;
 import static com.alexzh.simplecoffeeorder.utils.StringUtils.getString;
-import static org.hamcrest.Matchers.allOf;
 import static org.hamcrest.Matchers.anything;
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.hasEntry;
-import static org.hamcrest.Matchers.hasToString;
-import static org.hamcrest.Matchers.instanceOf;
-import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.startsWith;
 import static org.junit.Assert.assertEquals;
 
 @RunWith(AndroidJUnit4.class)
@@ -79,6 +71,12 @@ public class FullOrderTest {
                 .check(matches(withText(getString(mActivityRule, R.string.price, totalCoffeePrice))));
         onView(withId(R.id.pay)).perform(click());
 
+        onView(withId(R.id.delivery_info))
+                .perform(typeText("User"), closeSoftKeyboard());
+
+        onView(withId(R.id.delivery_info))
+                .check(matches(withText("User")));
+
         checkCoffeeListViewItem(espresso, espressoCount, coffeePrice, totalCoffeePrice);
         onView(withId(R.id.pay)).perform(click());
 
@@ -93,12 +91,6 @@ public class FullOrderTest {
         checkCoffeeListViewItem(espresso, espressoCount, coffeePrice, totalCoffeePrice);
     }
 
-    @After
-    public void tearDown() {
-        unregisterIdlingResources(mServiceIdlingResource);
-        mDevice.pressBack();
-    }
-
     private void checkCoffeeListViewItem(String name, String count, float coffeePrice, float totalCoffeePrice) {
         onData(anything()).atPosition(0).onChildView(withId(R.id.coffee_name))
                 .check(matches(withText(name)));
@@ -110,4 +102,9 @@ public class FullOrderTest {
                 .check(matches(withText(getString(mActivityRule, R.string.price, totalCoffeePrice))));
     }
 
+    @After
+    public void tearDown() {
+        unregisterIdlingResources(mServiceIdlingResource);
+        mDevice.pressBack();
+    }
 }
