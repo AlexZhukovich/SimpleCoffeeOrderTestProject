@@ -10,9 +10,9 @@ import android.widget.TextView;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mockito;
 import org.robolectric.Robolectric;
 import org.robolectric.RobolectricGradleTestRunner;
+import org.robolectric.RuntimeEnvironment;
 import org.robolectric.annotation.Config;
 import org.robolectric.shadows.ShadowActivity;
 import org.robolectric.shadows.ShadowIntent;
@@ -37,7 +37,7 @@ public class MainActivityTest {
 
     @Before
     public void setUp() {
-        mContext = Mockito.mock(Context.class);
+        mContext = RuntimeEnvironment.application.getApplicationContext();
         mActivity = Robolectric.setupActivity(MainActivity.class);
 
         mCoffeePrice = (TextView) mActivity.findViewById(R.id.coffee_price);
