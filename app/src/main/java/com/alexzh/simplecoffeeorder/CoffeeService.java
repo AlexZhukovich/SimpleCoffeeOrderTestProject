@@ -3,7 +3,8 @@ package com.alexzh.simplecoffeeorder;
 import android.app.IntentService;
 import android.content.Intent;
 import android.os.SystemClock;
-import android.support.v4.content.LocalBroadcastManager;
+
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import com.alexzh.simplecoffeeorder.model.Coffee;
 

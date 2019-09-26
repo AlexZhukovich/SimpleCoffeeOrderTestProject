@@ -1,11 +1,12 @@
 package com.alexzh.simplecoffeeorder.adapter;
 
 import android.content.Context;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.alexzh.simplecoffeeorder.R;
 import com.alexzh.simplecoffeeorder.customview.CoffeeCountPicker;
@@ -104,9 +105,9 @@ public class CoffeeOrderListAdapter extends RecyclerView.Adapter<CoffeeOrderList
         public CoffeeViewHolder(View itemView, View.OnClickListener listener) {
             super(itemView);
 
-            mCoffeeName = (TextView) itemView.findViewById(R.id.coffee_name);
-            mCoffeePrice = (TextView) itemView.findViewById(R.id.coffee_price);
-            mCoffeeCountPicker = (CoffeeCountPicker) itemView.findViewById(R.id.coffee_count_picker);
+            mCoffeeName = itemView.findViewById(R.id.coffee_name);
+            mCoffeePrice = itemView.findViewById(R.id.coffee_price);
+            mCoffeeCountPicker = itemView.findViewById(R.id.coffee_count_picker);
             if (listener != null) {
                 itemView.setOnClickListener(listener);
             }

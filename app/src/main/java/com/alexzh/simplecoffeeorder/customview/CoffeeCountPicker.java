@@ -38,7 +38,7 @@ public class CoffeeCountPicker extends FrameLayout implements View.OnClickListen
 
     private void initView() {
         View view = inflate(getContext(), R.layout.view_coffee_count_picker, null);
-        mCoffeeCountLabel = (TextView) view.findViewById(R.id.coffee_count);
+        mCoffeeCountLabel = view.findViewById(R.id.coffee_count);
         view.findViewById(R.id.coffee_increment).setOnClickListener(this);
         view.findViewById(R.id.coffee_decrement).setOnClickListener(this);
 

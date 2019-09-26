@@ -2,7 +2,8 @@ package com.alexzh.simplecoffeeorder;
 
 import android.app.ActivityManager;
 import android.content.Context;
-import android.support.test.espresso.IdlingResource;
+
+import androidx.test.espresso.IdlingResource;
 
 public class ServiceIdlingResource implements IdlingResource {
     private final Context mContext;

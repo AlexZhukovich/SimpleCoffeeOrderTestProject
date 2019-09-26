@@ -1,6 +1,6 @@
 package com.alexzh.simplecoffeeorder.utils;
 
-import android.support.test.rule.ActivityTestRule;
+import androidx.test.rule.ActivityTestRule;
 
 public class StringUtils {
 

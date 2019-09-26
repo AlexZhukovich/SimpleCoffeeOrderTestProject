@@ -6,14 +6,14 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.app.NotificationCompat;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
 
 import com.alexzh.simplecoffeeorder.R;
 import com.alexzh.simplecoffeeorder.adapter.CoffeeOrderDetailListViewAdapter;
@@ -21,6 +21,7 @@ import com.alexzh.simplecoffeeorder.model.Coffee;
 import com.alexzh.simplecoffeeorder.presentation.CoffeeOrderDetailsPresenter;
 import com.alexzh.simplecoffeeorder.presentation.CoffeeOrderDetailsPresenterImpl;
 import com.alexzh.simplecoffeeorder.view.CoffeeOrderDetailsView;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.TreeMap;
 
@@ -46,18 +47,18 @@ public class CoffeeOrderDetailsActivity extends AppCompatActivity implements Cof
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_coffee_order_details);
 
-        mDeliveryInfo = (EditText) findViewById(R.id.delivery_info);
-        mTotalPrice = (TextView) findViewById(R.id.total_price_toolbar);
+        mDeliveryInfo = findViewById(R.id.delivery_info);
+        mTotalPrice = findViewById(R.id.total_price_toolbar);
         mDetailPresenter = new CoffeeOrderDetailsPresenterImpl(getIntent(), this);
 
-        ListView detailListView = (ListView) findViewById(R.id.detail_list);
+        ListView detailListView = findViewById(R.id.detail_list);
         mAdapter = new CoffeeOrderDetailListViewAdapter(this, null);
 
         if (detailListView != null) {
             detailListView.setAdapter(mAdapter);
         }
 
-        FloatingActionButton pay = (FloatingActionButton) findViewById(R.id.pay);
+        FloatingActionButton pay = findViewById(R.id.pay);
         if (pay != null) {
             pay.setOnClickListener(this);
         }
