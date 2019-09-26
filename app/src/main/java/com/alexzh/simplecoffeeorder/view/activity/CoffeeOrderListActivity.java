@@ -5,14 +5,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
-import android.support.v4.content.LocalBroadcastManager;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.AppCompatTextView;
-import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ProgressBar;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatTextView;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.alexzh.simplecoffeeorder.CoffeeService;
 import com.alexzh.simplecoffeeorder.R;
@@ -22,6 +22,7 @@ import com.alexzh.simplecoffeeorder.model.Coffee;
 import com.alexzh.simplecoffeeorder.presentation.CoffeeOrderListPresenter;
 import com.alexzh.simplecoffeeorder.presentation.CoffeeOrderListPresenterImpl;
 import com.alexzh.simplecoffeeorder.view.CoffeeOrderListView;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 import java.util.TreeMap;
@@ -44,11 +45,11 @@ public class CoffeeOrderListActivity extends AppCompatActivity implements View.O
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_coffee_order_list);
 
-        mTotalPriceToolBar = (AppCompatTextView) findViewById(R.id.total_price_toolbar);
+        mTotalPriceToolBar = findViewById(R.id.total_price_toolbar);
         mTotalPriceToolBar.setText(getString(R.string.price, 0.0f));
 
-        mProgressBar = (ProgressBar) findViewById(R.id.progressBar);
-        mRecyclerView = (RecyclerView) findViewById(R.id.recyclerView);
+        mProgressBar = findViewById(R.id.progressBar);
+        mRecyclerView = findViewById(R.id.recyclerView);
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         mAdapter = new CoffeeOrderListAdapter(getApplicationContext(), null);
         mAdapter.setCoffeeOrderListener(new CoffeeOrderListAdapter.CoffeeOrderListener() {
@@ -134,7 +135,6 @@ public class CoffeeOrderListActivity extends AppCompatActivity implements View.O
         mTotalPriceToolBar.setText(getString(R.string.price, totalPrice));
     }
 
-    @Override
     public void displaySnackbar(int resId, int duration) {
         Snackbar.make(mRecyclerView, resId, duration).show();
     }

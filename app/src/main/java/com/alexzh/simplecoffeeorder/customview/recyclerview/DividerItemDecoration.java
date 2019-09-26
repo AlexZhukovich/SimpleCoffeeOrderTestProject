@@ -3,9 +3,10 @@ package com.alexzh.simplecoffeeorder.customview.recyclerview;
 import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
+
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 public class DividerItemDecoration extends RecyclerView.ItemDecoration {
     private Drawable mDivider;

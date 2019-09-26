@@ -51,10 +51,10 @@ public class CoffeeOrderDetailListViewAdapter extends BaseAdapter {
             convertView = inflater.inflate(R.layout.item_coffee_order_detail, parent, false);
 
             viewHolder = new ViewHolder();
-            viewHolder.mCoffeeName = (TextView) convertView.findViewById(R.id.coffee_name);
-            viewHolder.mCoffeeCount = (TextView) convertView.findViewById(R.id.coffee_count);
-            viewHolder.mCoffeePrice = (TextView) convertView.findViewById(R.id.coffee_price);
-            viewHolder.mTotalPrice = (TextView) convertView.findViewById(R.id.total_price);
+            viewHolder.mCoffeeName = convertView.findViewById(R.id.coffee_name);
+            viewHolder.mCoffeeCount = convertView.findViewById(R.id.coffee_count);
+            viewHolder.mCoffeePrice = convertView.findViewById(R.id.coffee_price);
+            viewHolder.mTotalPrice = convertView.findViewById(R.id.total_price);
 
             convertView.setTag(viewHolder);
         } else {
@@ -69,7 +69,7 @@ public class CoffeeOrderDetailListViewAdapter extends BaseAdapter {
                 viewHolder.mCoffeeName.setText(coffee.getName());
                 viewHolder.mCoffeeCount.setText(String.valueOf(count));
                 viewHolder.mCoffeePrice.setText(mContext.getString(R.string.price, coffee.getPrice()));
-                viewHolder.mTotalPrice.setText(mContext.getString(R.string.price, (float)(count * coffee.getPrice())));
+                viewHolder.mTotalPrice.setText(mContext.getString(R.string.price, (float) (count * coffee.getPrice())));
             }
         }
         return convertView;

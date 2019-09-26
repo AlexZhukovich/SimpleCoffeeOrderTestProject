@@ -1,12 +1,13 @@
 package com.alexzh.simplecoffeeorder.adapter;
 
 import android.content.Context;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.alexzh.simplecoffeeorder.R;
 import com.alexzh.simplecoffeeorder.model.Coffee;
@@ -67,9 +68,9 @@ public class CoffeeDetailAdapter extends RecyclerView.Adapter<CoffeeDetailAdapte
         public ViewHolder(View itemView) {
             super(itemView);
 
-            mItemTitle = (TextView) itemView.findViewById(R.id.category_title);
-            mItemDescription = (TextView) itemView.findViewById(R.id.category_description);
-            mItemLogo = (ImageView) itemView.findViewById(R.id.category_logo);
+            mItemTitle = itemView.findViewById(R.id.category_title);
+            mItemDescription = itemView.findViewById(R.id.category_description);
+            mItemLogo = itemView.findViewById(R.id.category_logo);
             itemView.setTag(itemView);
         }
     }

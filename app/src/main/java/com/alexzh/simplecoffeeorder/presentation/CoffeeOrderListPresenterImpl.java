@@ -1,13 +1,9 @@
 package com.alexzh.simplecoffeeorder.presentation;
 
 import android.app.Activity;
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
-import android.support.v4.content.LocalBroadcastManager;
 
 import com.alexzh.simplecoffeeorder.CoffeeService;
 import com.alexzh.simplecoffeeorder.R;
@@ -16,9 +12,9 @@ import com.alexzh.simplecoffeeorder.model.Coffee;
 import com.alexzh.simplecoffeeorder.view.CoffeeOrderListView;
 import com.alexzh.simplecoffeeorder.view.activity.CoffeeDetailActivity;
 import com.alexzh.simplecoffeeorder.view.activity.CoffeeOrderDetailsActivity;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.TreeMap;
 
 public class CoffeeOrderListPresenterImpl implements CoffeeOrderListPresenter {

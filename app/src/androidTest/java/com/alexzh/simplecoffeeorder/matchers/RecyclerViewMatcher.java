@@ -1,18 +1,16 @@
 package com.alexzh.simplecoffeeorder.matchers;
 
-import android.support.test.espresso.matcher.BoundedMatcher;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
+
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.test.espresso.matcher.BoundedMatcher;
 
 import com.alexzh.simplecoffeeorder.R;
 import com.alexzh.simplecoffeeorder.adapter.CoffeeOrderListAdapter;
 
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
-import org.w3c.dom.Text;
-
-import static android.support.v7.widget.RecyclerView.*;
 
 public class RecyclerViewMatcher {
 
@@ -20,15 +18,15 @@ public class RecyclerViewMatcher {
         return new BoundedMatcher<View, RecyclerView>(RecyclerView.class) {
             @Override
             public void describeTo(Description description) {
-                description.appendText("has item at position: " + position + " with title: " + title + " and description: " + description );
+                description.appendText("has item at position: " + position + " with title: " + title + " and description: " + description);
             }
 
             @Override
             protected boolean matchesSafely(final RecyclerView view) {
-                ViewHolder viewHolder = view.findViewHolderForAdapterPosition(position);
+                RecyclerView.ViewHolder viewHolder = view.findViewHolderForAdapterPosition(position);
                 if (viewHolder != null) {
-                    TextView titleTextView = (TextView) viewHolder.itemView.findViewById(R.id.category_title);
-                    TextView descTextView = (TextView) viewHolder.itemView.findViewById(R.id.category_description);
+                    TextView titleTextView = viewHolder.itemView.findViewById(R.id.category_title);
+                    TextView descTextView = viewHolder.itemView.findViewById(R.id.category_description);
                     return title.matches(titleTextView.getText().toString()) && description.matches(descTextView.getText().toString());
                 }
                 return false;
@@ -50,10 +48,10 @@ public class RecyclerViewMatcher {
 
             @Override
             protected boolean matchesSafely(final RecyclerView view) {
-                ViewHolder viewHolder = view.findViewHolderForAdapterPosition(position);
+                RecyclerView.ViewHolder viewHolder = view.findViewHolderForAdapterPosition(position);
                 if (viewHolder != null) {
-                    TextView coffeeTextView = (TextView) viewHolder.itemView.findViewById(R.id.coffee_name);
-                    TextView coffeeCountTextView = (TextView) viewHolder.itemView.findViewById(R.id.coffee_count);
+                    TextView coffeeTextView = viewHolder.itemView.findViewById(R.id.coffee_name);
+                    TextView coffeeCountTextView = viewHolder.itemView.findViewById(R.id.coffee_count);
                     return coffeeName.matches(coffeeTextView.getText().toString())
                             && String.valueOf(coffeeCount).equals(coffeeCountTextView.getText().toString());
                 }
@@ -66,7 +64,7 @@ public class RecyclerViewMatcher {
         return new BoundedMatcher<RecyclerView.ViewHolder, CoffeeOrderListAdapter.CoffeeViewHolder>(CoffeeOrderListAdapter.CoffeeViewHolder.class) {
             @Override
             public void describeTo(Description description) {
-                description.appendText("with coffeeName = "+coffeeName.toString());
+                description.appendText("with coffeeName = " + coffeeName.toString());
             }
 
             @Override
@@ -90,7 +88,7 @@ public class RecyclerViewMatcher {
             @Override
             protected boolean matchesSafely(RecyclerView view) {
 
-                TextView textView = (TextView) view.findViewById(R.id.coffee_count);
+                TextView textView = view.findViewById(R.id.coffee_count);
                 if (textView != null) {
                     return coffeeCount.matches(textView.getText().toString());
                 }

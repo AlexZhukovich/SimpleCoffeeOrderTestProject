@@ -1,6 +1,6 @@
 package com.alexzh.simplecoffeeorder.matchers;
 
-import android.support.test.espresso.matcher.BoundedMatcher;
+import androidx.test.espresso.matcher.BoundedMatcher;
 
 import com.alexzh.simplecoffeeorder.model.Coffee;
 

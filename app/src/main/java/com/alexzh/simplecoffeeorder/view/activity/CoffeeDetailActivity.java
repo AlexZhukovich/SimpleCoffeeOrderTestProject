@@ -4,13 +4,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
+
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.alexzh.simplecoffeeorder.R;
 import com.alexzh.simplecoffeeorder.adapter.CoffeeDetailAdapter;
@@ -41,10 +42,10 @@ public class CoffeeDetailActivity extends AppCompatActivity implements CoffeeDet
 
         mPresenter = new CoffeeDetailPresenterImpl();
 
-        mToolbar = (Toolbar) findViewById(R.id.anim_toolbar);
+        mToolbar = findViewById(R.id.anim_toolbar);
         setSupportActionBar(mToolbar);
 
-        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
+        RecyclerView recyclerView = findViewById(R.id.recyclerView);
         if (recyclerView != null) {
             recyclerView.setItemAnimator(new DefaultItemAnimator());
             Drawable divider = ContextCompat.getDrawable(this, R.drawable.coffee_item_divider);

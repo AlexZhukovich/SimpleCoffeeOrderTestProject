@@ -1,8 +1,9 @@
 package com.alexzh.simplecoffeeorder.matchers;
 
 import android.os.IBinder;
-import android.support.test.espresso.Root;
 import android.view.WindowManager;
+
+import androidx.test.espresso.Root;
 
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
